@@ -8,13 +8,15 @@ import { tokenLoader } from "./utils/auth";
 import RecoverPasswordPage, { action as resetAction } from "./pages/RecoverPassword";
 import ErrorPage from "./pages/Error";
 import PropertiesRootLayout from "./pages/PropertiesRoot";
-import PropertiesPage from "./pages/Properties";
+import PropertiesPage, { loader as propertiesLoader } from "./pages/Properties";
+import NewPropertyPage from "./pages/NewProperty";
+import { action as manipulatePropertyAction } from "./components/PropertyForm";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
-    errorElement:<ErrorPage/>,
+    errorElement: <ErrorPage />,
     id: "root",
     loader: tokenLoader,
     children: [
@@ -28,8 +30,15 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <PropertiesPage />
-          }
+            element: <PropertiesPage />,
+            loader: propertiesLoader
+          },
+          {
+            path: "new",
+            element: <NewPropertyPage />,
+            action: manipulatePropertyAction,
+            // loader: checkAuthLoader,
+          },
         ],
       },
       {

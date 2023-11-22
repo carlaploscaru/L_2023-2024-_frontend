@@ -28,7 +28,7 @@ const PropertiesNavigation=()=>{
                 >
                   My properties
                 </NavLink>
-              </li>
+              </li> */}
               <li>
                 <NavLink
                   to="/properties/new"
@@ -39,7 +39,7 @@ const PropertiesNavigation=()=>{
                 >
                   New Property
                 </NavLink>
-              </li> */}
+              </li>
             </nav>
           </ul>
         </nav>
