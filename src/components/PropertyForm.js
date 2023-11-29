@@ -1,10 +1,36 @@
-import { Form, redirect, useNavigate, useNavigation } from "react-router-dom";
+import { Form, json, redirect, useNavigate, useNavigation } from "react-router-dom";
 import classes from "./PropertyForm.module.css";
 import { getAuthToken } from "../utils/auth";
+import { useEffect, useState } from "react";
 
 const PropertyForm = ({ method, property }) => {
   const navigate = useNavigate();
   const navigation = useNavigation();
+
+  const [categories, setCategories] = useState();
+
+  useEffect(() => {
+    const token = getAuthToken();
+
+    const getCategories = async () => {
+      const response = await fetch("http://localhost:8000/category", {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+
+      if (!response.ok) {
+        throw json({ message: "Could not fetch properties" }, { status: 500 });
+      } else {
+        const resData = await response.json();
+
+        setCategories(resData);
+      }
+    };
+
+    getCategories();
+  }, [fetch]);
 
   const isSubmitting = navigation.state === "submitting";
 
@@ -57,17 +83,6 @@ const PropertyForm = ({ method, property }) => {
         </p>
 
         <p>
-          <label htmlFor="strada">Strada</label>
-          <input
-            id="strada"
-            type="strada"
-            name="strada"
-            required
-            defaultValue={property ? property.strada : ""}
-          />
-        </p>
-
-        <p>
           <label htmlFor="judet">Judet</label>
           <input
             id="judet"
@@ -79,15 +94,37 @@ const PropertyForm = ({ method, property }) => {
         </p>
 
         <p>
-          <label htmlFor="category">Categorie</label>
+          <label htmlFor="strada">Strada</label>
           <input
-            id="category"
-            name="category"
-            type="text"
+            id="strada"
+            type="strada"
+            name="strada"
             required
-            defaultValue={property ? property.categoryId : ""}
+            defaultValue={property ? property.strada : ""}
           />
         </p>
+
+
+        <p>
+          <label htmlFor="category">Categorie</label>
+          <select name="category" id="category">
+            {categories &&
+              categories.map((category) => {
+                console.log(category);
+                console.log;
+                if (property.category._id === category._id) {
+                  return (
+                    <option value={category._id} selected>
+                      {category.title}
+                    </option>
+                  );
+                } else {
+                  return <option value={category._id}>{category.title}</option>;
+                }
+              })}
+          </select>
+        </p>
+
 
         <div className={classes.actions}>
           <button type="button" onClick={cancelHandler} disabled={isSubmitting}>
@@ -104,48 +141,49 @@ const PropertyForm = ({ method, property }) => {
 
 export default PropertyForm;
 
-export const action = async ({request, params}) => {
-    const method = request.method;
-    const data = await request.formData();
+export const action = async ({ request, params }) => {
+  const method = request.method;
+  const data = await request.formData();
 
-    const propertyData = {
-        title: data.get("title"),
-        suprafata: data.get("suprafata"),
-        tara: data.get("tara"),
-        oras: data.get("oras"),
-        strada: data.get("strada"),
-        judet: data.get("judet"),
-        categoryId: data.get("category"),
-      };
+  const propertyData = {
+    title: data.get("title"),
+    suprafata: data.get("suprafata"),
+    tara: data.get("tara"),
+    oras: data.get("oras"),
+    judet: data.get("judet"),
+    strada: data.get("strada"),
+    categoryId: data.get("category"),
+    userId: data.get("owner"),
+  };
 
-      let url = "http://localhost:8000/place";
+  let url = "http://localhost:8000/place";
 
-      if (method === "PATCH") {
-        const propertyId = params.propertyId;
-        url = "http://localhost:8000/place/" + propertyId;
-      }
-    
-      const token = getAuthToken();
-      
-      const response = await fetch(url, {
-        method: method,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-        body: JSON.stringify(propertyData),
-      });
+  if (method === "PATCH") {
+    const propertyId = params.propertyId;
+    url = "http://localhost:8000/place/" + propertyId;
+  }
 
-      if(response.status === 422 || response.status === 401) {
-        return response;
-      }
+  const token = getAuthToken();
 
-      if (!response.ok) {
-        throw json(
-          { message: "Could not save property" },
-          { status: response.status }
-        );
-      }
+  const response = await fetch(url, {
+    method: method,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify(propertyData),
+  });
 
-      return redirect("/properties");
-    }
+  if (response.status === 422 || response.status === 401) {
+    return response;
+  }
+
+  if (!response.ok) {
+    throw json(
+      { message: "Could not save property" },
+      { status: response.status }
+    );
+  }
+
+  return redirect("/properties");
+}

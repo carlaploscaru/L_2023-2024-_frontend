@@ -11,6 +11,10 @@ import PropertiesRootLayout from "./pages/PropertiesRoot";
 import PropertiesPage, { loader as propertiesLoader } from "./pages/Properties";
 import NewPropertyPage from "./pages/NewProperty";
 import { action as manipulatePropertyAction } from "./components/PropertyForm";
+import PropertyDetailPage, {
+  loader as propertyDetailLoader,
+} from "./pages/PropertyDetail";
+import EditPropertyPage from "./pages/EditProperty";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +36,23 @@ const router = createBrowserRouter([
             index: true,
             element: <PropertiesPage />,
             loader: propertiesLoader
+          },
+          {
+            path: ":propertyId",
+            id: "property-detail",
+            loader: propertyDetailLoader,
+            children: [
+              {
+                index: true,
+                element: <PropertyDetailPage />,
+              },
+              {
+                path: "edit",
+                element: <EditPropertyPage />,
+                action: manipulatePropertyAction,
+                //loader: checkAuthLoader,
+              },
+            ],
           },
           {
             path: "new",
