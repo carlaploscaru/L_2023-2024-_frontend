@@ -1,4 +1,4 @@
-import { Form, json, redirect, useNavigate, useNavigation } from "react-router-dom";
+import { Form, json, redirect, useActionData, useNavigate, useNavigation } from "react-router-dom";
 import classes from "./PropertyForm.module.css";
 import { getAuthToken } from "../utils/auth";
 import { useEffect, useState } from "react";
@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 const PropertyForm = ({ method, property }) => {
   const navigate = useNavigate();
   const navigation = useNavigation();
+  const data=useActionData();
 
   const [categories, setCategories] = useState();
 
@@ -40,14 +41,25 @@ const PropertyForm = ({ method, property }) => {
 
   return (
     <Form method={method} className={classes.form}>
+      {data && data.message && <p>{data.message}</p>}
+      {/* {data && data.data && data.data[0].msg && <p>{data.data[0].msg} test</p>} */}
+      {data && data.data && (
+        <>
+          {data.data.map((err) => {
+            console.log("---", err);
+            return <p key={err.msg}>{err.msg}</p>;
+          })}
+        </>
+      )}
       <p>
         <p>
+          {/* scot required cand fac error handling */}
           <label htmlFor="title">Title</label>
           <input
             id="title"
             type="text"
             name="title"
-            required
+            
             defaultValue={property ? property.title : ""}
           />
         </p>
@@ -57,7 +69,7 @@ const PropertyForm = ({ method, property }) => {
             id="suprafata"
             name="suprafata"
             type="text"
-            required
+            
             defaultValue={property ? property.suprafata : ""}
           />
         </p>
@@ -67,7 +79,7 @@ const PropertyForm = ({ method, property }) => {
             id="tara"
             type="text"
             name="tara"
-            required
+            
             defaultValue={property ? property.tara : ""}
           />
         </p>
@@ -77,7 +89,7 @@ const PropertyForm = ({ method, property }) => {
             id="oras"
             type="text"
             name="oras"
-            required
+            
             defaultValue={property ? property.oras : ""}
           />
         </p>
@@ -88,7 +100,7 @@ const PropertyForm = ({ method, property }) => {
             id="judet"
             type="text"
             name="judet"
-            required
+            
             defaultValue={property ? property.judet : ""}
           />
         </p>
@@ -99,7 +111,7 @@ const PropertyForm = ({ method, property }) => {
             id="strada"
             type="strada"
             name="strada"
-            required
+            
             defaultValue={property ? property.strada : ""}
           />
         </p>
@@ -108,11 +120,11 @@ const PropertyForm = ({ method, property }) => {
         <p>
           <label htmlFor="category">Categorie</label>
           <select name="category" id="category">
-            {categories &&
+            { categories &&
               categories.map((category) => {
                 console.log(category);
                 console.log;
-                if (property.category._id === category._id) {
+                if (property && property.category._id === category._id) {
                   return (
                     <option value={category._id} selected>
                       {category.title}

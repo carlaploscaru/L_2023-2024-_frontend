@@ -1,10 +1,10 @@
 import { Link, useSubmit } from "react-router-dom";
 import classes from "./PropertyItem.module.css";
+import { getUserId } from "../utils/auth";
 
 const PropertyItem = ({ property }) => {
   const submit = useSubmit();
-
-  console.log(property);
+  const userId = getUserId();
 
   const startDeleteHandler = () => {
     const proceed = window.confirm("Are you sure?");
@@ -19,12 +19,12 @@ const PropertyItem = ({ property }) => {
       {/* <img src={property.image} alt={property.title}></img> */}
       <h1>{property.title}</h1>
 
-      <p>{property.owner}</p>
+      <p>{property.owner.nume}</p>
       <p>{property.category.title}</p>
-      <menu className={classes.actions}>
+      {userId && (userId === property.owner.id ) && <menu className={classes.actions}>
         <Link to="edit">Edit</Link>
         <button onClick={startDeleteHandler}>Delete</button>
-      </menu>
+      </menu>}
     </article>
   );
 };

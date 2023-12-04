@@ -95,3 +95,17 @@ export const loader = async ({ request, params }) => {
    
   });
 };
+
+export const action = async ({ request, params }) => {
+  const propertyId = params.propertyId;
+  const token = getAuthToken();
+
+  const response = await fetch("http://localhost:8000/place/" + propertyId, {
+    method: "DELETE",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+
+  return redirect("/properties");
+};

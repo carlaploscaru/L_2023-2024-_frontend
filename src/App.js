@@ -12,7 +12,7 @@ import PropertiesPage, { loader as propertiesLoader } from "./pages/Properties";
 import NewPropertyPage from "./pages/NewProperty";
 import { action as manipulatePropertyAction } from "./components/PropertyForm";
 import PropertyDetailPage, {
-  loader as propertyDetailLoader,
+  loader as propertyDetailLoader, action as deletePropertyAction
 } from "./pages/PropertyDetail";
 import EditPropertyPage from "./pages/EditProperty";
 
@@ -45,6 +45,7 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: <PropertyDetailPage />,
+                action: deletePropertyAction,
               },
               {
                 path: "edit",
