@@ -6,9 +6,21 @@ import { useEffect, useState } from "react";
 const PropertyForm = ({ method, property }) => {
   const navigate = useNavigate();
   const navigation = useNavigation();
-  const data=useActionData();
+  const data = useActionData();
 
   const [categories, setCategories] = useState();
+  const [imageInputCounter, setImageInputCounter] = useState([]);
+
+  const newImageHandler = () => {
+
+    if (imageInputCounter.length < 8) {
+      let newCounter = [...imageInputCounter];
+      console.log(newCounter)
+      newCounter.push(newCounter.length + 1);
+      setImageInputCounter(newCounter);
+    } else {
+    }
+  };
 
   useEffect(() => {
     const token = getAuthToken();
@@ -39,15 +51,23 @@ const PropertyForm = ({ method, property }) => {
     navigate("..");
   };
 
+
+  const clearImageFromInput = (event) => {
+    console.log(event.target.id);
+    const fileInput = document.getElementById(event.target.id);
+    fileInput.value = null;
+  };
+console.log(method);
   return (
-    <Form method={method} className={classes.form}>
+    <Form method={method} className={classes.form}
+      encType="multipart/form-data">
       {data && data.message && <p>{data.message}</p>}
       {/* {data && data.data && data.data[0].msg && <p>{data.data[0].msg} test</p>} */}
       {data && data.data && (
         <>
-          {data.data.map((err) => {
-            console.log("---", err);
-            return <p key={err.msg}>{err.msg}</p>;
+          {data.data.map((msg) => {
+            //console.log("---", err);
+            return <p key={msg}>{msg}</p>;
           })}
         </>
       )}
@@ -59,7 +79,7 @@ const PropertyForm = ({ method, property }) => {
             id="title"
             type="text"
             name="title"
-            
+
             defaultValue={property ? property.title : ""}
           />
         </p>
@@ -69,7 +89,7 @@ const PropertyForm = ({ method, property }) => {
             id="suprafata"
             name="suprafata"
             type="text"
-            
+
             defaultValue={property ? property.suprafata : ""}
           />
         </p>
@@ -79,7 +99,7 @@ const PropertyForm = ({ method, property }) => {
             id="tara"
             type="text"
             name="tara"
-            
+
             defaultValue={property ? property.tara : ""}
           />
         </p>
@@ -89,7 +109,7 @@ const PropertyForm = ({ method, property }) => {
             id="oras"
             type="text"
             name="oras"
-            
+
             defaultValue={property ? property.oras : ""}
           />
         </p>
@@ -100,7 +120,7 @@ const PropertyForm = ({ method, property }) => {
             id="judet"
             type="text"
             name="judet"
-            
+
             defaultValue={property ? property.judet : ""}
           />
         </p>
@@ -111,7 +131,7 @@ const PropertyForm = ({ method, property }) => {
             id="strada"
             type="strada"
             name="strada"
-            
+
             defaultValue={property ? property.strada : ""}
           />
         </p>
@@ -120,7 +140,7 @@ const PropertyForm = ({ method, property }) => {
         <p>
           <label htmlFor="category">Categorie</label>
           <select name="category" id="category">
-            { categories &&
+            {categories &&
               categories.map((category) => {
                 console.log(category);
                 console.log;
@@ -137,6 +157,38 @@ const PropertyForm = ({ method, property }) => {
           </select>
         </p>
 
+        <p>
+          {property && property.image && property.image.map(img =>  <img height={150} width={150} src={`http://localhost:8000/${img}`}/>)}
+        </p>
+        <p>
+          <label htmlFor="images">Imagini (puteti alege 8 imagini)</label>
+          <>
+            <input id="images" type="file" name="images" />
+            <button type="button" id="images" onClick={clearImageFromInput}>
+              Clear
+            </button>
+          </>
+
+          {imageInputCounter.map((count) => {
+            return (
+              <>
+                <input
+                  id={images + count}
+                  type="file"
+                  name={images + count}
+                />
+                <button
+                  type="button"
+                  id={images + count}
+                  onClick={clearImageFromInput}
+                >
+                  Clear
+                </button>
+              </>
+            );
+          })}
+        </p>
+        <button type="button" onClick={(newImageHandler)}>+</button>
 
         <div className={classes.actions}>
           <button type="button" onClick={cancelHandler} disabled={isSubmitting}>
@@ -155,18 +207,42 @@ export default PropertyForm;
 
 export const action = async ({ request, params }) => {
   const method = request.method;
-  const data = await request.formData();
 
-  const propertyData = {
-    title: data.get("title"),
-    suprafata: data.get("suprafata"),
-    tara: data.get("tara"),
-    oras: data.get("oras"),
-    judet: data.get("judet"),
-    strada: data.get("strada"),
-    categoryId: data.get("category"),
-    userId: data.get("owner"),
-  };
+
+  const aaa = await request.formData();
+
+  const data = Object.fromEntries(aaa);
+
+  const formData = new FormData();
+  formData.append("title", data.title);
+  formData.append("suprafata", data.suprafata);
+  formData.append("tara", data.tara);
+  formData.append("oras", data.oras);
+  formData.append("strada", data.strada);
+  formData.append("judet", data.judet);
+  formData.append("categoryId", data.category);
+
+  formData.append("image", data.images);
+  if (data.images1 !== null) formData.append("image", data.images1);
+  if (data.images2 !== null) formData.append("image", data.images2);
+  if (data.images3 !== null) formData.append("image", data.images3);
+  if (data.images4 !== null) formData.append("image", data.images4);
+  if (data.images5 !== null) formData.append("image", data.images5);
+  if (data.images6 !== null) formData.append("image", data.images6);
+  if (data.images7 !== null) formData.append("image", data.images7);
+  if (data.images8 !== null) formData.append("image", data.images8);
+
+
+  // const propertyData = {
+  //   title: data.get("title"),
+  //   suprafata: data.get("suprafata"),
+  //   tara: data.get("tara"),
+  //   oras: data.get("oras"),
+  //   judet: data.get("judet"),
+  //   strada: data.get("strada"),
+  //   categoryId: data.get("category"),
+  //   userId: data.get("owner"),
+  // };
 
   let url = "http://localhost:8000/place";
 
@@ -177,13 +253,15 @@ export const action = async ({ request, params }) => {
 
   const token = getAuthToken();
 
+
+
+
   const response = await fetch(url, {
     method: method,
     headers: {
-      "Content-Type": "application/json",
       Authorization: "Bearer " + token,
     },
-    body: JSON.stringify(propertyData),
+    body: formData,
   });
 
   if (response.status === 422 || response.status === 401) {

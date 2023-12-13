@@ -18,7 +18,9 @@ const PropertyItem = ({ property }) => {
     <article className={classes.property}>
       {/* <img src={property.image} alt={property.title}></img> */}
       <h1>{property.title}</h1>
-
+      {
+        property.image && property.image.map(img => <img width={300} height={300} src={`http://localhost:8000/${img}`}/>)
+      }
       <p>{property.owner.nume}</p>
       <p>{property.category.title}</p>
       {userId && (userId === property.owner.id ) && <menu className={classes.actions}>
