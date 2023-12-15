@@ -10,6 +10,10 @@ const PropertyForm = ({ method, property }) => {
 
   const [categories, setCategories] = useState();
   const [imageInputCounter, setImageInputCounter] = useState([]);
+  const [images, setImages] = useState(() => {
+    if (property) return property.image;
+    else return [];
+  });
 
   const newImageHandler = () => {
 
@@ -17,6 +21,16 @@ const PropertyForm = ({ method, property }) => {
       let newCounter = [...imageInputCounter];
       console.log(newCounter)
       newCounter.push(newCounter.length + 1);
+      setImageInputCounter(newCounter);
+    } else {
+    }
+  };
+
+  const substractNumberOfImagesToLoad = () => {
+    if (imageInputCounter.length > 0) {
+      let newCounter = [...imageInputCounter];
+      console.log(newCounter);
+      newCounter.pop();
       setImageInputCounter(newCounter);
     } else {
     }
@@ -55,9 +69,79 @@ const PropertyForm = ({ method, property }) => {
   const clearImageFromInput = (event) => {
     console.log(event.target.id);
     const fileInput = document.getElementById(event.target.id);
+
+    const ident = event.target.id.slice(-1);
+
+    let previewId = "file-preview";
+
+    if (!isNaN(ident)) {
+      previewId = previewId + ident;
+    }
+
+    const preview = document.getElementById(previewId);
+
+    preview.setAttribute("src", null);
     fileInput.value = null;
   };
-console.log(method);
+
+  const clearImageFromDatabase = async (event) => {
+    console.log(event.target.id.split("\\")[2]);
+    console.log(property._id);
+
+    let token = getAuthToken();
+
+    let imageAndPlaceId =
+      event.target.id.split("\\")[2] + "separator" + property._id;
+
+    const response = await fetch(
+      `http://localhost:8000/place/image/${imageAndPlaceId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw json({ message: "Could not delete image" }, { status: 500 });
+    } else {
+      const resData = await response.json();
+    }
+
+    if (property && images) {
+      let newImages = images.filter((img) => img !== event.target.id);
+
+      setImages([...newImages]);
+    }
+  };
+
+  const imageChangeHandler = (event) => {
+    console.log(event.target.id);
+    const file = event.target.files;
+    const ident = event.target.id.slice(-1);
+
+    let previewId = "file-preview";
+
+    if (!isNaN(ident)) {
+      previewId = previewId + ident;
+    }
+
+    if (file) {
+      const fileReader = new FileReader();
+      console.log(file);
+      const preview = document.getElementById(previewId);
+      fileReader.onload = (event) => {
+        preview.setAttribute("src", event.target.result);
+      };
+
+      console.log(fileReader);
+      fileReader.readAsDataURL(file[0]);
+    }
+  };
+
+
+
   return (
     <Form method={method} className={classes.form}
       encType="multipart/form-data">
@@ -158,37 +242,76 @@ console.log(method);
         </p>
 
         <p>
-          {property && property.image && property.image.map(img =>  <img height={150} width={150} src={`http://localhost:8000/${img}`}/>)}
+          {property && images && images.map(img => {
+            return (
+              <>
+                <img
+                  height={150}
+                  width={150}
+                  src={`http://localhost:8000/${img}`}
+                />
+                <button
+                  type="button"
+                  id={img}
+                  onClick={clearImageFromDatabase}
+                >
+                  x
+                </button>
+              </>
+            );
+          })}
         </p>
         <p>
           <label htmlFor="images">Imagini (puteti alege 8 imagini)</label>
           <>
-            <input id="images" type="file" name="images" />
-            <button type="button" id="images" onClick={clearImageFromInput}>
-              Clear
-            </button>
+            <input id="images" type="file" name="images" onChange={imageChangeHandler} />
+            <div>
+              <img
+                src="#"
+                height={150}
+                width={150}
+                alt="Preview Uploaded Image"
+                id="file-preview"
+                style={{ marginRight: "20px" }}
+              ></img>
+              <button type="button" id="images" onClick={clearImageFromInput}>
+                Clear
+              </button>
+            </div>
           </>
 
           {imageInputCounter.map((count) => {
             return (
               <>
                 <input
-                  id={images + count}
+                  id={"images" + count}
                   type="file"
-                  name={images + count}
+                  name={"images" + count}
+                  onChange={imageChangeHandler}
                 />
-                <button
-                  type="button"
-                  id={images + count}
-                  onClick={clearImageFromInput}
-                >
-                  Clear
-                </button>
+                <div>
+                  <img
+                    src="#"
+                    height={150}
+                    width={150}
+                    alt="Preview Uploaded Image"
+                    id={`file-preview` + count}
+                    style={{ marginRight: "20px" }}
+                  ></img>
+                  <button
+                    type="button"
+                    id={`images` + count}
+                    onClick={clearImageFromInput}
+                  >
+                    Clear
+                  </button>
+                </div>
               </>
             );
           })}
         </p>
-        <button type="button" onClick={(newImageHandler)}>+</button>
+        <button type="button" onClick={newImageHandler}>+</button>
+        <button type="button" onClick={substractNumberOfImagesToLoad}>-</button>
 
         <div className={classes.actions}>
           <button type="button" onClick={cancelHandler} disabled={isSubmitting}>
