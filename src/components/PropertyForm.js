@@ -254,6 +254,7 @@ const PropertyForm = ({ method, property }) => {
                   type="button"
                   id={img}
                   onClick={clearImageFromDatabase}
+                  style={{color:'black'}}
                 >
                   x
                 </button>
@@ -274,7 +275,7 @@ const PropertyForm = ({ method, property }) => {
                 id="file-preview"
                 style={{ marginRight: "20px" }}
               ></img>
-              <button type="button" id="images" onClick={clearImageFromInput}>
+              <button type="button" id="images" onClick={clearImageFromInput} style={{color:'black'}}>
                 Clear
               </button>
             </div>
@@ -302,6 +303,7 @@ const PropertyForm = ({ method, property }) => {
                     type="button"
                     id={`images` + count}
                     onClick={clearImageFromInput}
+                    style={{color:'black'}}
                   >
                     Clear
                   </button>
@@ -310,8 +312,8 @@ const PropertyForm = ({ method, property }) => {
             );
           })}
         </p>
-        <button type="button" onClick={newImageHandler}>+</button>
-        <button type="button" onClick={substractNumberOfImagesToLoad}>-</button>
+        <button type="button" onClick={newImageHandler} style={{color: "green", border: "2px solid green", fontSize:"30px", padding: "3px"}}>+</button>{"  "}
+        <button type="button" onClick={substractNumberOfImagesToLoad} style={{color: "red", border: "2px solid red", fontSize:"30px", padding: "3px"}}>-</button>
 
         <div className={classes.actions}>
           <button type="button" onClick={cancelHandler} disabled={isSubmitting}>

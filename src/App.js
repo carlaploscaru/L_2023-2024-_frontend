@@ -15,6 +15,7 @@ import PropertyDetailPage, {
   loader as propertyDetailLoader, action as deletePropertyAction
 } from "./pages/PropertyDetail";
 import EditPropertyPage from "./pages/EditProperty";
+import ProfilePage, { loader as userProfileLoader, action as userProfileAction } from "./pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,13 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />
+      },
+      {
+        path: "/me",
+        id: "me",
+        element: <ProfilePage />,
+        loader: userProfileLoader,
+        action: userProfileAction
       },
       {
         path: "properties",

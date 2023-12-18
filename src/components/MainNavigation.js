@@ -18,6 +18,18 @@ const MainNavigation = () => {
           >
             Home
           </NavLink>
+          {token && (
+            <li>
+              <NavLink
+                to="/me"
+                className={({ isActive }) =>
+                  isActive ? classes.active : undefined
+                }
+              >
+                Profile
+              </NavLink>
+            </li>
+          )}
           {!token && (
             <NavLink
               to="/auth?mode=login"
