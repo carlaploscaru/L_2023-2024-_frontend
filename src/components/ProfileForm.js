@@ -1,8 +1,9 @@
-import { Form, useNavigation } from "react-router-dom";
+import { Form, useActionData, useNavigation } from "react-router-dom";
 import classes from "./ProfileForm.module.css";
 
 const ProfileForm = ({ user }) => {
   const navigation = useNavigation();
+  const data = useActionData();
 
   const isSubmitting = navigation.state === "submitting";
 
@@ -21,7 +22,7 @@ const ProfileForm = ({ user }) => {
       };
 
       console.log(fileReader);
-      if(file[0]){
+      if (file[0]) {
         fileReader.readAsDataURL(file[0]);
       } else {
         preview.setAttribute("src", null);
@@ -50,6 +51,15 @@ const ProfileForm = ({ user }) => {
         className={classes.form}
         encType="multipart/form-data"
       >
+        {data && data.message && <p>{data.message}</p>}
+        {data && data.data && (
+          <>
+            {data.data.map((err) => {
+              console.log("---", err);
+              return <p key={err.msg}>{err}</p>;
+            })}
+          </>
+        )}
         <p>
           {user && user.image && (
             <>
@@ -58,23 +68,16 @@ const ProfileForm = ({ user }) => {
                 width={150}
                 src={`http://localhost:8000/${user.image}`}
               />
-             
+
             </>
           )}
         </p>
+        <p>{user.email}</p>
         <p>
           <label htmlFor="name">Name</label>
           <input id="name" type="text" name="name" defaultValue={user.name} />
         </p>
-        <p>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="text"
-            name="email"
-            defaultValue={user.email}
-          />
-        </p>
+       
         <p>
           <label htmlFor="images">Imagini</label>
           <>

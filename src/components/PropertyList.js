@@ -13,14 +13,14 @@ const PropertyList = ({ properties }) => {
                 src={`http://localhost:8000/${property.image[0]}`}
                 alt={property.title}
               ></img>
-              <div className={classes.content}>
-                <h2>Title:  {property.title}</h2>
+              <div style={{color:'white'}} className={classes.content}>
+                <h2 >Title:  {property.title}</h2>
                 <p>Suprafata:  {property.suprafata}</p>
                 <p>Tara:  {property.tara}</p>
                 <p>Oras:  {property.oras}</p>{/* <time>{property.oras}</time> */}
                 <p>Judet:  {property.judet}</p>
                 <p>Strada:  {property.strada}</p>
-                <p>Category:  {property.category.title}</p>
+                <p>Category:  {property.category}</p>
                 <p>Owner:  {property.owner}</p>
               </div>
             </Link>
