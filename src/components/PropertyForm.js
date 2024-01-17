@@ -222,6 +222,28 @@ const PropertyForm = ({ method, property }) => {
 
 
         <p>
+          <label htmlFor="price">Price</label>
+          <input
+            id="price"
+            type="price"
+            name="price"
+
+            defaultValue={property ? property.price : ""}
+          />
+        </p>
+
+        <p>
+          <label htmlFor="currency">Currency</label>
+          <select name="currency" id="currency">
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="RON"selected>RON</option>
+            <option value="HUF">HUF</option>
+          </select>
+        </p>
+
+
+        <p>
           <label htmlFor="category">Categorie</label>
           <select name="category" id="category">
             {categories &&
@@ -254,7 +276,7 @@ const PropertyForm = ({ method, property }) => {
                   type="button"
                   id={img}
                   onClick={clearImageFromDatabase}
-                  style={{color:'black'}}
+                  style={{ color: 'black' }}
                 >
                   x
                 </button>
@@ -275,7 +297,7 @@ const PropertyForm = ({ method, property }) => {
                 id="file-preview"
                 style={{ marginRight: "20px" }}
               ></img>
-              <button type="button" id="images" onClick={clearImageFromInput} style={{color:'black'}}>
+              <button type="button" id="images" onClick={clearImageFromInput} style={{ color: 'black' }}>
                 Clear
               </button>
             </div>
@@ -303,7 +325,7 @@ const PropertyForm = ({ method, property }) => {
                     type="button"
                     id={`images` + count}
                     onClick={clearImageFromInput}
-                    style={{color:'black'}}
+                    style={{ color: 'black' }}
                   >
                     Clear
                   </button>
@@ -312,8 +334,8 @@ const PropertyForm = ({ method, property }) => {
             );
           })}
         </p>
-        <button type="button" onClick={newImageHandler} style={{color: "green", border: "2px solid green", fontSize:"30px", padding: "3px"}}>+</button>{"  "}
-        <button type="button" onClick={substractNumberOfImagesToLoad} style={{color: "red", border: "2px solid red", fontSize:"30px", padding: "3px"}}>-</button>
+        <button type="button" onClick={newImageHandler} style={{ color: "green", border: "2px solid green", fontSize: "30px", padding: "3px" }}>+</button>{"  "}
+        <button type="button" onClick={substractNumberOfImagesToLoad} style={{ color: "red", border: "2px solid red", fontSize: "30px", padding: "3px" }}>-</button>
 
         <div className={classes.actions}>
           <button type="button" onClick={cancelHandler} disabled={isSubmitting}>
@@ -345,7 +367,10 @@ export const action = async ({ request, params }) => {
   formData.append("oras", data.oras);
   formData.append("strada", data.strada);
   formData.append("judet", data.judet);
+  formData.append("price", data.price);
+  formData.append("currency", data.currency);
   formData.append("categoryId", data.category);
+
 
   formData.append("image", data.images);
   if (data.images1 !== null) formData.append("image", data.images1);

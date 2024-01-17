@@ -1,10 +1,19 @@
+
 import PageContent from "../components/PageContent";
 
 const HomePage = () => {
+
   return (
-    <PageContent title="Welcome!">
-      <p>Browse for rentals!</p>
-    </PageContent>
+    <>
+      <iframe
+        className="earth2024"
+        src="https://my.spline.design/untitled-4cdc18014e7584ad78508cdf5d503225/"
+        width={2000}
+        height={560}>
+      </iframe>
+      <PageContent title="Welcome!">
+      </PageContent>
+    </>
   );
 };
 
