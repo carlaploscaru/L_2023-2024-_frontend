@@ -53,6 +53,15 @@ const PropertyList = ({ properties }) => {
               })}
           </select>
           </p>
+
+          <p>
+            <label htmlFor="data_start">Data start</label>
+            <input id="data_start" type="date" name="data_start"/>
+          </p>
+          <p>
+            <label htmlFor="data_end">Data end</label>
+            <input id="data_end" type="date" name="data_end"/>
+          </p>
           <div className={classes.actions}>
           
             <button style={{backgroundColor: "red"}}>

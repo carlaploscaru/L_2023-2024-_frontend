@@ -29,7 +29,7 @@ const loadProperties = async (filterArray) => {
       });
     } else {
       response = await fetch(
-        `http://localhost:8000/place?tara=${filterArray["tara"]}&oras=${filterArray["oras"]}&category=${filterArray["category"]}`,
+        `http://localhost:8000/place?tara=${filterArray["tara"]}&oras=${filterArray["oras"]}&data_start=${filterArray["data_start"]}&data_end=${filterArray["data_end"]}`,
         {
           method: "GET",
           headers: {

@@ -16,6 +16,7 @@ import PropertyDetailPage, {
 } from "./pages/PropertyDetail";
 import EditPropertyPage from "./pages/EditProperty";
 import ProfilePage, { loader as userProfileLoader, action as userProfileAction } from "./pages/Profile";
+import BookPage, {action as bookAction} from "./pages/Book";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,11 @@ const router = createBrowserRouter([
                 element: <EditPropertyPage />,
                 action: manipulatePropertyAction,
                 //loader: checkAuthLoader,
+              },
+              {
+                path: "book",
+                element: <BookPage />,
+                action: bookAction,
               },
             ],
           },
