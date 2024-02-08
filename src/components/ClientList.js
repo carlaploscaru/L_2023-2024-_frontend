@@ -1,17 +1,38 @@
+import starRed from "./assets/star-red.png";
+import starGrey from "./assets/star-grey.png";
+import starGold from "./assets/star-yellow.png";
+import Rating from "react-rating";
+import { isDisabled } from "@testing-library/user-event/dist/utils";
+
 const ClientList = ({ clients }) => {
     return (
         <>
-            <h1>My clients: </h1>
             <ul>
+                <h1>My clients: </h1>
                 {
                     clients.map(rez => {
-                    
+
                         return (
-                            <li>
-                                <p>tara: {rez.tara}, oras: {rez.oras}, suprafata:{rez.suprafata}, </p>
+                            <li style={{ padding: "8px 16px", borderBottom: "1px solid #ddd", listStyleType: "none" }}>
+                                <p>Country: {rez.tara}, City: {rez.oras}, Surface:{rez.suprafata}, </p>
                                 <p>start: {rez.data_start}, end: {rez.data_end}</p>
                                 <p>clints: {rez.client}</p>
                                 <p>Total price: {rez.price} {rez.currency}</p>
+                                <Rating
+                                    placeholderRating={rez.rating}
+                                    emptySymbol={
+                                        <img src={starGrey} className="icon" />
+                                    }
+                                    placeholderSymbol={
+                                        <img src={starRed} className="icon" />
+                                    }
+                                    fullSymbol={
+                                        <img src={starGold} className="icon" />
+                                    }
+                                    readonly={true}
+                                    
+                                />
+
                             </li>)
                     })
 

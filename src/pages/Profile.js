@@ -18,7 +18,7 @@ const ProfilePage = () => {
   
   return (
     <>
-      <div style={{ displey: "flex" }}>
+      <div style={{ display: "flex" }}>
 
         <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
           <Await resolve={clients}>

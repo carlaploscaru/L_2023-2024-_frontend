@@ -6,6 +6,7 @@ import classes from './AuthForm.module.css';
 import PropertyItem from "./PropertyItem";
 import { useState } from "react";
 
+
 const BookForm = () => {
     const [addRecieptData, setAddReciptData] = useState(false);
     const [dataStartSelected, setDataStartSelected] = useState(false);
@@ -106,7 +107,7 @@ const BookForm = () => {
 
                 {addRecieptData && (<p> <label htmlFor="pay_type">Payment type:</label>
                     <div style={{ display: "flex" }}>
-                        <input id="pay_type" type="checkbox" value="card" name="pay_type" onChange={cashSelectHandler} checked={isCashSelected} />
+                        <input id="pay_type" type="checkbox" value="cash" name="pay_type" onChange={cashSelectHandler} checked={isCashSelected} />
                         <label >Cash</label>
                     </div>
                     <div style={{ display: "flex" }}>

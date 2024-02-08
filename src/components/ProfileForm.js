@@ -79,7 +79,7 @@ const ProfileForm = ({ user }) => {
         </p>
        
         <p>
-          <label htmlFor="images">Imagini</label>
+          <label htmlFor="images">Images</label>
           <>
             <input
               id="images"

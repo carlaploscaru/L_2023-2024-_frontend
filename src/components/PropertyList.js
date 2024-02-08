@@ -34,17 +34,17 @@ const PropertyList = ({ properties }) => {
       <div className={classes.propertiesForm}>
         <Form  className={classes.form}>
         <p>
-            <label htmlFor="tara">Tara</label>
+            <label htmlFor="tara">Country</label>
             <input id="tara" type="text" name="tara"/>
           </p>
          
          <p>
-            <label htmlFor="oras">Oras</label>
+            <label htmlFor="oras">City</label>
             <input id="oras" type="text" name="oras"/>
           </p>
 
           <p>
-            <label htmlFor="categorie">Categorie</label>
+            <label htmlFor="categorie">Category</label>
             <select name="category" id="category">
               <option value=""></option>
             {categories &&
@@ -82,7 +82,7 @@ const PropertyList = ({ properties }) => {
               ></img>
               <div style={{color:'white'}} className={classes.content}>
                 <h2 >Category  {property.category}  {property.title}</h2>
-                <p>Tara:  {property.tara}, Oras:  {property.oras},Strada:  {property.strada}, Suprafata:  {property.suprafata}</p>{/* <time>{property.oras}</time> */}
+                <p>Country:  {property.tara}, City:  {property.oras},Street:  {property.strada}, Surface:  {property.suprafata}</p>{/* <time>{property.oras}</time> */}
                 <p>Owner:  {property.owner}</p>
                 <h2 >Price:  {property.price}  {property.currency}</h2>
               </div>

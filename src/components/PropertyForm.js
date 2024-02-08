@@ -168,7 +168,7 @@ const PropertyForm = ({ method, property }) => {
           />
         </p>
         <p>
-          <label htmlFor="suprafata">Suprafata</label>
+          <label htmlFor="suprafata">Surface</label>
           <input
             id="suprafata"
             name="suprafata"
@@ -178,7 +178,7 @@ const PropertyForm = ({ method, property }) => {
           />
         </p>
         <p>
-          <label htmlFor="tara">Tara</label>
+          <label htmlFor="tara">Country</label>
           <input
             id="tara"
             type="text"
@@ -188,7 +188,7 @@ const PropertyForm = ({ method, property }) => {
           />
         </p>
         <p>
-          <label htmlFor="oras">Oras</label>
+          <label htmlFor="oras">City</label>
           <input
             id="oras"
             type="text"
@@ -199,7 +199,7 @@ const PropertyForm = ({ method, property }) => {
         </p>
 
         <p>
-          <label htmlFor="judet">Judet</label>
+          <label htmlFor="judet">Region</label>
           <input
             id="judet"
             type="text"
@@ -210,7 +210,7 @@ const PropertyForm = ({ method, property }) => {
         </p>
 
         <p>
-          <label htmlFor="strada">Strada</label>
+          <label htmlFor="strada">Street</label>
           <input
             id="strada"
             type="strada"
@@ -244,7 +244,7 @@ const PropertyForm = ({ method, property }) => {
 
 
         <p>
-          <label htmlFor="category">Categorie</label>
+          <label htmlFor="category">Category</label>
           <select name="category" id="category">
             {categories &&
               categories.map((category) => {
@@ -285,7 +285,7 @@ const PropertyForm = ({ method, property }) => {
           })}
         </p>
         <p>
-          <label htmlFor="images">Imagini (puteti alege 8 imagini)</label>
+          <label htmlFor="images">Images (8 images can be selected)</label>
           <>
             <input id="images" type="file" name="images" onChange={imageChangeHandler} />
             <div>
