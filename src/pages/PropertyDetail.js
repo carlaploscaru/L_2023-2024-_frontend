@@ -7,19 +7,23 @@ import {
 } from "react-router-dom";
 import PropertyItem from "../components/PropertyItem";
 import { getAuthToken } from "../utils/auth";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import PropertyList from "../components/PropertyList";
 
 const PropertyDetailPage = () => {
   const { property, properties } =
     useRouteLoaderData("property-detail");
+
+    useEffect(() => {
+      window.scrollTo({top: 0, left: 0, behavior: 'smooth'});}, [property]);
+      
   return (
     <>
-      <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
-        <Await resolve={property}>
+      <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>} >
+        <Await resolve={property} >
           {(loadedProperty) => (
-            <PropertyItem
-              property={loadedProperty}
+            <PropertyItem 
+              property={loadedProperty} 
             />
           )}
         </Await>

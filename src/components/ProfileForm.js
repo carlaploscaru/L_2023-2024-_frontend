@@ -1,10 +1,12 @@
 import { Form, useActionData, useNavigation } from "react-router-dom";
 import classes from "./ProfileForm.module.css";
+import { useState } from "react";
 
 const ProfileForm = ({ user }) => {
   const navigation = useNavigation();
   const data = useActionData();
 
+  const [showFilePreview, setShowFilePreview]=useState(false);
   const isSubmitting = navigation.state === "submitting";
 
   const imageChangeHandler = (event) => {
@@ -24,8 +26,10 @@ const ProfileForm = ({ user }) => {
       console.log(fileReader);
       if (file[0]) {
         fileReader.readAsDataURL(file[0]);
+        setShowFilePreview(true)
       } else {
         preview.setAttribute("src", null);
+        setShowFilePreview(false)
       }
     }
   };
@@ -41,6 +45,7 @@ const ProfileForm = ({ user }) => {
 
     preview.setAttribute("src", null);
     fileInput.value = null;
+    setShowFilePreview(false)
   };
 
 
@@ -95,15 +100,16 @@ const ProfileForm = ({ user }) => {
                 alt="Preview Uploaded Image"
                 id="file-preview"
                 style={{ marginRight: "20px" }}
+                hidden={!showFilePreview}
               ></img>
-              <button
+           {showFilePreview  &&   <button
                 type="button"
                 id="images"
                 onClick={clearImageFromInput}
                 style={{ color: "green" }}
               >
                 Clear
-              </button>
+              </button>}
             </div>
           </>
         </p>

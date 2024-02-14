@@ -27,11 +27,12 @@ const PropertyItem = ({ property }) => {
       }
       <p>{property.owner.nume}</p>
       <p>{property.category.title}</p>
-      {userId && (userId === property.owner.id) && <menu className={classes.actions}>
-        {showButtons && <Link to="edit">Edit</Link>}
-        {showButtons && <button onClick={startDeleteHandler}>Delete</button>}
+      { <menu className={classes.actions}>
+        {userId && (userId === property.owner.id) && showButtons && <Link to="edit">Edit</Link>}
+        {userId && (userId === property.owner.id) && showButtons && <button onClick={startDeleteHandler}>Delete</button>}
         {showButtons && <Link to="book" >Book</Link>}
       </menu>}
+      
     </article>
   );
 };

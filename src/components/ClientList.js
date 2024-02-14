@@ -1,6 +1,6 @@
-import starRed from "./assets/star-red.png";
-import starGrey from "./assets/star-grey.png";
-import starGold from "./assets/star-yellow.png";
+import starRed from "./assets/red.png";
+import starGrey from "./assets/grey.png";
+import starGold from "./assets/yellow.png";
 import Rating from "react-rating";
 import { isDisabled } from "@testing-library/user-event/dist/utils";
 
@@ -30,8 +30,9 @@ const ClientList = ({ clients }) => {
                                         <img src={starGold} className="icon" />
                                     }
                                     readonly={true}
-                                    
                                 />
+                                
+                                {/* {rez.comment && <p>Comment: {rez.comment} From:{rez.client}</p>} */}
 
                             </li>)
                     })
