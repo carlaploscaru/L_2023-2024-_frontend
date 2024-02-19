@@ -3,10 +3,11 @@ import classes from "./ProfileForm.module.css";
 import { useState } from "react";
 
 const ProfileForm = ({ user }) => {
+ 
   const navigation = useNavigation();
   const data = useActionData();
 
-  const [showFilePreview, setShowFilePreview]=useState(false);
+  const [showFilePreview, setShowFilePreview] = useState(false);
   const isSubmitting = navigation.state === "submitting";
 
   const imageChangeHandler = (event) => {
@@ -49,6 +50,11 @@ const ProfileForm = ({ user }) => {
   };
 
 
+
+
+  
+
+
   return (
     <>
       <Form
@@ -82,7 +88,7 @@ const ProfileForm = ({ user }) => {
           <label htmlFor="name">Name</label>
           <input id="name" type="text" name="name" defaultValue={user.name} />
         </p>
-       
+
         <p>
           <label htmlFor="images">Images</label>
           <>
@@ -102,7 +108,7 @@ const ProfileForm = ({ user }) => {
                 style={{ marginRight: "20px" }}
                 hidden={!showFilePreview}
               ></img>
-           {showFilePreview  &&   <button
+              {showFilePreview && <button
                 type="button"
                 id="images"
                 onClick={clearImageFromInput}
@@ -119,6 +125,9 @@ const ProfileForm = ({ user }) => {
           </button>
         </div>
       </Form>
+
+
+
     </>
   );
 };

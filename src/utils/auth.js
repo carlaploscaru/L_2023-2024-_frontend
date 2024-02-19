@@ -43,3 +43,11 @@ export const getUserId = () => {
 
   return userId;
 };
+
+export const getIsAdmin = () => {
+  const isAdmin = localStorage.getItem("isAdmin");
+  if (!isAdmin) {
+    return null;
+  }
+  return isAdmin;
+};

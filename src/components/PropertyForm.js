@@ -52,7 +52,7 @@ const PropertyForm = ({ method, property }) => {
       } else {
         const resData = await response.json();
 
-        setCategories(resData);
+        setCategories(resData.categories);
       }
     };
 

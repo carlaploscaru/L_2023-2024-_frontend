@@ -26,7 +26,7 @@ const PropertyList = ({ properties }) => {
       } else {
         const resData = await response.json();
 
-        setCategories(resData);
+        setCategories(resData.categories);
       }
     };
 

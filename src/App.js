@@ -17,6 +17,7 @@ import PropertyDetailPage, {
 import EditPropertyPage from "./pages/EditProperty";
 import ProfilePage, { loader as userProfileLoader, action as userProfileAction } from "./pages/Profile";
 import BookPage, {action as bookAction} from "./pages/Book";
+import ManagementPage, {loader as managementLoader, action as managementAction} from "./pages/Management";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,13 @@ const router = createBrowserRouter([
         element: <ProfilePage />,
         loader: userProfileLoader,
         action: userProfileAction
+      },
+      {
+        path: "/management",
+        id: "management",
+        element: <ManagementPage />,
+        loader: managementLoader,
+        action:managementAction
       },
       {
         path: "properties",

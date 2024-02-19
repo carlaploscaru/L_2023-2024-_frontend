@@ -45,7 +45,7 @@ const BookList = ({ reservations }) => {
         })
 
         const resData = await response.json();//useless(to take the respons, u can print it)
-      
+
 
         reservations = reservations.map(rez => {//takes the values
             if (rez._id === id) {
@@ -94,7 +94,7 @@ const BookList = ({ reservations }) => {
                                     onChange={(rate) => { onRateHandler(rez._id, rate) }}
                                 />
 
-                                
+
                                 <button onClick={() => { changePopupState(rez._id) }}
                                     type="button"
                                     style={{ color: "green" }}>
@@ -113,9 +113,16 @@ const BookList = ({ reservations }) => {
                                     </div>
                                     <button onClick={() => { submitCommentHandler(rez._id) }} style={{ color: "green" }}>Submit</button>
                                 </div>}
-                                {rez.comment && <>{rez.comment}</>}
 
+                
+                                {rez.comment && (
+                                    <div style={{ marginTop: "10px", width: "320px", border: "1px solid #ccc", padding: "6px"}}>
+                                        <p>Your comment:</p>
+                                        <div style={{overflow: "auto"}}>{rez.comment}</div>
+                                    </div>
+                                )}
 
+              
 
                             </>
                         )

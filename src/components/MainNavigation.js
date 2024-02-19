@@ -1,9 +1,11 @@
 import { Form, NavLink, useRouteLoaderData } from "react-router-dom";
 
 import classes from "./MainNavigation.module.css";
+import { getIsAdmin } from "../utils/auth";
 
 const MainNavigation = () => {
   const { token } = useRouteLoaderData("root");
+  const isAdmin =getIsAdmin();
 
   return (
     <header className={classes.header}>
@@ -27,6 +29,18 @@ const MainNavigation = () => {
                 }
               >
                 Profile
+              </NavLink>
+            </li>
+          )}
+            {isAdmin==="true" && token && (
+            <li>
+              <NavLink
+                to="/management"
+                className={({ isActive }) =>
+                  isActive ? classes.active : undefined
+                }
+              >
+                App Managemant
               </NavLink>
             </li>
           )}
