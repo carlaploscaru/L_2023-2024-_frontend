@@ -1,4 +1,4 @@
-import { Form, Link } from "react-router-dom";
+import { Form, Link, useSearchParams } from "react-router-dom";
 import classes from "./PropertyList.module.css";
 import { useEffect, useState } from "react";
 import { getAuthToken } from "../utils/auth";
@@ -10,6 +10,9 @@ import starGold from "./assets/yellow.png";
 const PropertyList = ({ properties }) => {
   const token = getAuthToken();
   const [categories, setCategories] = useState();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [ds, getDateStart] = useState();
+  const [de, setDateEnd] = useState();
 
   useEffect(() => {
 
@@ -32,6 +35,32 @@ const PropertyList = ({ properties }) => {
 
     getCategories();
   }, [fetch]);
+
+
+  const data_start = searchParams.get("data_start");
+  const data_end = searchParams.get("data_end");
+  const tara = searchParams.get("tara");
+  const oras = searchParams.get("oras");
+  const category = searchParams.get("category");
+
+
+  const dataStartChangeHandler = (event) => {
+    if (data_start && (new Date(event.target.value)).getTime() > (new Date(data_end)).getTime()) {
+      setSearchParams({ data_start: "", data_end: data_end ? data_end : "", tara: tara ? tara : "", oras: oras ? oras : "", category: category ? category : "" })
+    } else {
+      setSearchParams({ data_start: event.target.value, data_end: data_end ? data_end : "", tara: tara ? tara : "", oras: oras ? oras : "", category: category ? category : "" })
+    }
+  }
+
+
+  const dataEndChangeHandler = (event) => {
+    if ((new Date(event.target.value)).getTime() < (new Date(data_start)).getTime()) {
+      setSearchParams({ data_start: data_start ? data_start : "", data_end: "", tara: tara ? tara : "", oras: oras ? oras : "", category: category ? category : "" })
+    } else {
+      setSearchParams({ data_start: data_start ? data_start : "", data_end: event.target.value, tara: tara ? tara : "", oras: oras ? oras : "", category: category ? category : "" })
+    }
+  }
+
 
   return (
     <div className={classes.propertiesPage}>
@@ -60,11 +89,15 @@ const PropertyList = ({ properties }) => {
 
           <p>
             <label htmlFor="data_start">Data start</label>
-            <input id="data_start" type="date" name="data_start" />
+            <input id="data_start" type="date" name="data_start" style={{ borderColor: data_start && data_start !== "" ? "green" : "red" }}
+              onChange={dataStartChangeHandler}
+              value={data_start} />
           </p>
           <p>
             <label htmlFor="data_end">Data end</label>
-            <input id="data_end" type="date" name="data_end" />
+            <input id="data_end" type="date" name="data_end" style={{ borderColor: data_end && data_end !== "" ? "green" : "red" }}
+              onChange={dataEndChangeHandler}
+              value={data_end} />
           </p>
           <div className={classes.actions}>
 
@@ -79,7 +112,12 @@ const PropertyList = ({ properties }) => {
         <ul className={classes.list}>
           {properties.map((property) => (
             <li key={property.id} className={classes.item}>
-              <Link to={`/properties/${property._id}`}>
+             
+              {data_start &&
+                data_start !== "" &&
+                data_end &&
+                data_end !== "" && 
+                <Link to={`/properties/${property._id}`}>
                 <img
                   src={`http://localhost:8000/${property.image[0]}`}
                   alt={property.title}
@@ -92,18 +130,45 @@ const PropertyList = ({ properties }) => {
                   <Rating
                     placeholderRating={property.rating}
                     emptySymbol={
-                      <img src={starGrey} className="icon"  style={{ width: '20px', height: '20px' }}/>
+                      <img src={starGrey} className="icon" style={{ width: '20px', height: '20px' }} />
                     }
                     placeholderSymbol={
                       <img src={starRed} className="icon" style={{ width: '20px', height: '20px' }} />
                     }
                     fullSymbol={
-                      <img src={starGold} className="icon"  style={{ width: '20px', height: '20px'}}/>
+                      <img src={starGold} className="icon" style={{ width: '20px', height: '20px' }} />
                     }
                     readonly={true}
                   />
                 </div>
-              </Link>
+              </Link>}
+              {
+                <>
+                 <img
+                  src={`http://localhost:8000/${property.image[0]}`}
+                  alt={property.title}
+                ></img>
+                <div style={{ color: 'white' }} className={classes.content}>
+                  <h2 >Category  {property.category}  {property.title}</h2>
+                  <p>Country:  {property.tara}, City:  {property.oras},Street:  {property.strada}, Surface:  {property.suprafata}</p>{/* <time>{property.oras}</time> */}
+                  <p>Owner:  {property.owner}</p>
+                  <h2 >Price:  {property.price}  {property.currency}</h2>
+                  <Rating
+                    placeholderRating={property.rating}
+                    emptySymbol={
+                      <img src={starGrey} className="icon" style={{ width: '20px', height: '20px' }} />
+                    }
+                    placeholderSymbol={
+                      <img src={starRed} className="icon" style={{ width: '20px', height: '20px' }} />
+                    }
+                    fullSymbol={
+                      <img src={starGold} className="icon" style={{ width: '20px', height: '20px' }} />
+                    }
+                    readonly={true}
+                  />
+                </div>
+                </>
+              }
             </li>
           ))}
         </ul>

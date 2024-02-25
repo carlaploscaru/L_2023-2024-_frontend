@@ -94,7 +94,9 @@ const BookForm = () => {
                 {dataStartSelected && dataEndSelected &&
                     <p>
                         <label htmlFor="price">Price:</label>
-                        <input id="price" type="text" name="price" value={price} />
+                        <input id="price" type="text" name="price" value={price}/>
+                        <label>{propertyData.property.currency}</label>
+                        {/* /////////////////////////////////////////////////////// */}
                     </p>}
                 {addRecieptData && (<p> <label htmlFor="nume">Name:</label>
                     <input style={{ backgroundColor: "black", color: "white" }} id="nume" type="text" name="nume" /></p>)}
