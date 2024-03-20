@@ -18,7 +18,7 @@ const ProfileForm = ({ user }) => {
 
     if (file) {
       const fileReader = new FileReader();
-      //console.log(file);
+      //console.log("file",file);
       const preview = document.getElementById(previewId);
       fileReader.onload = (event) => {
         preview.setAttribute("src", event.target.result);
