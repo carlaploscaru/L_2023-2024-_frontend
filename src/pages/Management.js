@@ -12,18 +12,29 @@ import ProfileForm from "../components/ProfileForm";
 import BookList from "../components/BookList";
 import ClientList from "../components/ClientList";
 import CategoryList from "../components/CategoryList";
+import UsersList from "../components/UsersList";
 
 const ManagementPage = () => {
-  const { categories } = useRouteLoaderData("management");
+  const { categories, users } = useRouteLoaderData("management");
+ 
+  
 
   return (
     <>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex" ,gap: "300px"}}>
         <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
           <Await resolve={categories}>
             {(loadedCat) => <CategoryList categories={loadedCat} />}
           </Await>
         </Suspense>
+
+
+        <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
+          <Await resolve={users}>
+            {(loadedUs) => <UsersList users={loadedUs} />}
+          </Await>
+        </Suspense>
+
       </div>
     </>
   );
@@ -36,25 +47,38 @@ export const action = async ({ request, params }) => {
   const data = await request.formData();
   const catid = data.get("id")
   const catTitle = data.get("title")
+  const userId= data.get("userId")
 
-  if (request.method === "PATCH") {
-    const response = await fetch(`http://localhost:8000/category/${catid}`, {
+  if(userId && userId !==''){
+    const response = await fetch(`http://localhost:8000/user/${userId}`, {
       method: "PATCH",
       headers: {
         Authorization: "Bearer " + token,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ title: catTitle })
     })
-  } else {
-    const response = await fetch(`http://localhost:8000/category/${catid}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: "Bearer " + token,
-        "Content-Type": "application/json",
-      },
-    })
+  }else{
+    if (request.method === "PATCH") {
+      const response = await fetch(`http://localhost:8000/category/${catid}`, {
+        method: "PATCH",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title: catTitle })
+      })
+    } else {
+      const response = await fetch(`http://localhost:8000/category/${catid}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+      })
+    }
   }
+
+
 
 
   return true;
@@ -88,6 +112,34 @@ const loadCategories = async () => {
 
 }
 
+const loadUsers = async () => {
+  const token = getAuthToken();
+
+  const response = await fetch("http://localhost:8000/user", {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+
+  if (!response.ok) {
+    throw json(
+      {
+        message: "Could not fetch my profile data!",
+      },
+      {
+        status: 500,
+      }
+    );
+  } else {
+    const resData = await response.json();
+    return resData.users;
+    //daca in backend trimit un array atunci aici astept un array asa: return resData
+    //daca in backend trimit un obiect {cheie: []} atunci aici astept asa: return resData.cheie
+  }
+
+}
+
 
 
 
@@ -105,6 +157,8 @@ export const loader = async ({ request, params }) => {
   return defer({
 
     categories: loadCategories(),
+    users: loadUsers(),
 
   });
-};
+}
+

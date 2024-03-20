@@ -37,24 +37,24 @@ const BookForm = () => {
     }
 
     const cardSelectHandler = (event) => {
-        if(!isCardSelected && !isCashSelected) {
-          setIsCardSelected(!isCardSelected)
+        if (!isCardSelected && !isCashSelected) {
+            setIsCardSelected(!isCardSelected)
         }
-        if(isCashSelected && !isCardSelected) {
-          setIsCardSelected(!isCardSelected)
-          setIsCashSelected(!isCashSelected)
+        if (isCashSelected && !isCardSelected) {
+            setIsCardSelected(!isCardSelected)
+            setIsCashSelected(!isCashSelected)
         }
-      }
-    
-      const cashSelectHandler = (event) => {
-        if(!isCardSelected && !isCashSelected) {
-          setIsCashSelected(!isCashSelected)
+    }
+
+    const cashSelectHandler = (event) => {
+        if (!isCardSelected && !isCashSelected) {
+            setIsCashSelected(!isCashSelected)
         }
-        if(!isCashSelected && isCardSelected) {
-          setIsCardSelected(!isCardSelected)
-          setIsCashSelected(!isCashSelected)
+        if (!isCashSelected && isCardSelected) {
+            setIsCardSelected(!isCardSelected)
+            setIsCashSelected(!isCashSelected)
         }
-      }
+    }
 
     const days = (new Date(dataEndSelected).getTime() - (new Date(dataStartSelected)).getTime()) / (1000 * 3600 * 24);
     const price = days * propertyData.property.price;
@@ -94,9 +94,9 @@ const BookForm = () => {
                 {dataStartSelected && dataEndSelected &&
                     <p>
                         <label htmlFor="price">Price:</label>
-                        <input id="price" type="text" name="price" value={price}/>
+                        <input id="price" type="text" name="price" value={price} />
                         <label>{propertyData.property.currency}</label>
-                        {/* /////////////////////////////////////////////////////// */}
+                        
                     </p>}
                 {addRecieptData && (<p> <label htmlFor="nume">Name:</label>
                     <input style={{ backgroundColor: "black", color: "white" }} id="nume" type="text" name="nume" /></p>)}
@@ -113,8 +113,8 @@ const BookForm = () => {
                         <label >Cash</label>
                     </div>
                     <div style={{ display: "flex" }}>
-                        <input id="pay_type" type="checkbox" value="card" name="pay_type" onChange={cardSelectHandler} checked={isCardSelected}/>
-                            <label >Card</label>
+                        <input id="pay_type" type="checkbox" value="card" name="pay_type" onChange={cardSelectHandler} checked={isCardSelected} />
+                        <label >Card</label>
                     </div>
                 </p>
                 )}

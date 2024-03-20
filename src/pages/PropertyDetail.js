@@ -21,11 +21,7 @@ const PropertyDetailPage = () => {
     <>
       <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>} >
         <Await resolve={property} >
-          {(loadedProperty) => (
-            <PropertyItem 
-              property={loadedProperty} 
-            />
-          )}
+          {(loadedProperty) => <PropertyItem property={loadedProperty} />}
         </Await>
       </Suspense>
       <Suspense>
@@ -41,7 +37,7 @@ export default PropertyDetailPage;
 
 const loadProperty = async (id) => {
   const token = getAuthToken();
-
+  //console.log ("idddddddddddddddddddd",id)
   const response = await fetch("http://localhost:8000/place/" + id, {
     method: "GET",
     headers: {
@@ -60,9 +56,12 @@ const loadProperty = async (id) => {
     );
   } else {
     const resData = await response.json();
+    //console.log("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[",resData.place)
     return resData.place;
   }
 };
+
+
 
 const loadProperties = async () => {
   const token = getAuthToken();
@@ -73,20 +72,24 @@ const loadProperties = async () => {
       Authorization: "Bearer " + token,
     },
   });
+  
 
   if (!response.ok) {
     throw json({ message: "Could not fetch properties" }, { status: 500 });
   } else {
     const resData = await response.json();
-
-    return resData.places;
+console.log("resssssssssdataaaaaaaaaaaaaaaaa",resData)
+   // return resData.places;
+   return resData;
+   
   }
+
 };
+
 
 
 export const loader = async ({ request, params }) => {
   const propertyId = params.propertyId;
-
   const token = getAuthToken();
 
   if (!token) {
@@ -94,22 +97,23 @@ export const loader = async ({ request, params }) => {
   }
 
   return defer({
-    property: await loadProperty(propertyId),
+    property: await loadProperty(propertyId),/////////////
     properties: loadProperties(),
    
   });
 };
 
-export const action = async ({ request, params }) => {
-  const propertyId = params.propertyId;
-  const token = getAuthToken();
+// export const action = async ({ request, params }) => {
+//   const propertyId = params.propertyId;
+ 
+//   const token = getAuthToken();
 
-  const response = await fetch("http://localhost:8000/place/" + propertyId, {
-    method: "DELETE",
-    headers: {
-      Authorization: "Bearer " + token,
-    },
-  });
+//   const response = await fetch("http://localhost:8000/place/" + propertyId, {
+//     method: "DELETE",
+//     headers: {
+//       Authorization: "Bearer " + token,
+//     },
+//   });
 
-  return redirect("/properties");
-};
+//   return redirect("/properties");
+// };

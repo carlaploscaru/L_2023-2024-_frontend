@@ -11,13 +11,27 @@
     gap: 1rem;
     list-style-type: none;
   }
-  
+ 
   .list a {
     text-decoration: none;
-    color: var(--color-primary-400);
+    color: rgb(53, 34, 148);
+    background-color: #6682f4; 
+    color: #fff; 
+    border: none; 
+    padding: 10px 20px; 
+    font-size: 16px;
+    font-weight: bold; 
+    border-radius: 5px; 
+    cursor: pointer;
+    transition: background-color 0.3s ease;
   }
   
   .list a:hover,
   .list a.active {
-    color: var(--color-primary-800);
+    background-color: #3e3e45;
   }
+
+
+
+ 
+ 

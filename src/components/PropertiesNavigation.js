@@ -19,17 +19,7 @@ const PropertiesNavigation=()=>{
                 </NavLink>
               </li>
               {/* <li>
-                <NavLink
-                  to={`/properties/user/${userId}`}
-                  className={({ isActive }) =>
-                    isActive ? classes.active : undefined
-                  }
-                  end
-                >
-                  My properties
-                </NavLink>
-              </li> */}
-              <li>
+       
                 <NavLink
                   to="/properties/new"
                   className={({ isActive }) =>
@@ -39,7 +29,7 @@ const PropertiesNavigation=()=>{
                 >
                   New Property
                 </NavLink>
-              </li>
+              </li> */}
             </nav>
           </ul>
         </nav>

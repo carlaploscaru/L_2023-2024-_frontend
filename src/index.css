@@ -74,3 +74,9 @@
 .orders {
   width: 100%;
 }
+
+.App {
+  text-align: center;
+  background-image: url("./components/assets/i1.jpg");
+  background-size: cover;
+}

@@ -1,18 +1,22 @@
 
+import Footer from "../components/Footer";
 import PageContent from "../components/PageContent";
 
 const HomePage = () => {
 
   return (
     <>
-      <iframe
+      {/* <iframe
         className="earth2024"
         src="https://my.spline.design/untitled-4cdc18014e7584ad78508cdf5d503225/"
         width={2000}
         height={560}>
-      </iframe>
-      <PageContent title="Welcome!">
+      </iframe> */}
+      <p></p>
+      
+      <PageContent  >
       </PageContent>
+      <Footer/>
     </>
   );
 };

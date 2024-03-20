@@ -3,9 +3,9 @@ import { Form, NavLink, useRouteLoaderData } from "react-router-dom";
 import classes from "./MainNavigation.module.css";
 import { getIsAdmin } from "../utils/auth";
 
-const MainNavigation = () => {
+const MainNavigation = ({ ownerId }) => {
   const { token } = useRouteLoaderData("root");
-  const isAdmin =getIsAdmin();
+  const isAdmin = getIsAdmin();
 
   return (
     <header className={classes.header}>
@@ -32,7 +32,7 @@ const MainNavigation = () => {
               </NavLink>
             </li>
           )}
-            {isAdmin==="true" && token && (
+          {isAdmin === "true" && token && (
             <li>
               <NavLink
                 to="/management"
@@ -66,6 +66,20 @@ const MainNavigation = () => {
               </NavLink>
             </li>
           )}
+          {/* /////////////////////////////////////////////// */}
+          {token && (
+            <li>
+              <NavLink
+                 to="/my-properties"
+                className={({ isActive }) =>
+                  isActive ? classes.active : undefined
+                }
+              >
+                 My properties
+              </NavLink>
+            </li>
+          )}
+ {/* /////////////////////////////////////////////// */}
           {token && (
             <li>
               <Form action="/logout" method="post">

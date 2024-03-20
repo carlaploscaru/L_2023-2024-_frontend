@@ -12,12 +12,15 @@ import PropertiesPage, { loader as propertiesLoader} from "./pages/Properties";
 import NewPropertyPage from "./pages/NewProperty";
 import { action as manipulatePropertyAction } from "./components/PropertyForm";
 import PropertyDetailPage, {
-  loader as propertyDetailLoader, action as deletePropertyAction
+  loader as propertyDetailLoader, 
+  action as deletePropertyAction
 } from "./pages/PropertyDetail";
 import EditPropertyPage from "./pages/EditProperty";
 import ProfilePage, { loader as userProfileLoader, action as userProfileAction } from "./pages/Profile";
 import BookPage, {action as bookAction} from "./pages/Book";
 import ManagementPage, {loader as managementLoader, action as managementAction} from "./pages/Management";
+import MyPropertiesPage, { loader as MyPropertiesLoader, action as deleteOwnerPropertyAction} from "./pages/MyProperties";
+
 
 const router = createBrowserRouter([
   {
@@ -45,6 +48,27 @@ const router = createBrowserRouter([
         loader: managementLoader,
         action:managementAction
       },
+
+      ////////////////////////////////////////////
+      {
+        path: "/my-properties",
+        id: "my-properties",
+        element: <MyPropertiesPage />,
+        loader: MyPropertiesLoader,
+        children: [
+          {
+            index: true,
+            action: deleteOwnerPropertyAction,
+          },
+          // {
+          //   path: ":p1/edit",
+          //   element: <EditPropertyPage />,
+          //   action: manipulatePropertyAction,
+          // },
+        ]
+      },
+  
+////////////////////////////////////////////////
       {
         path: "properties",
         element: <PropertiesRootLayout />,
@@ -62,14 +86,14 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: <PropertyDetailPage />,
-                action: deletePropertyAction,
+                //action: deletePropertyAction,
               },
-              {
-                path: "edit",
-                element: <EditPropertyPage />,
-                action: manipulatePropertyAction,
-                //loader: checkAuthLoader,
-              },
+              // {
+              //   path: "edit",
+              //   element: <EditPropertyPage />,
+              //   action: manipulatePropertyAction,
+              //   //loader: checkAuthLoader,
+              // },
               {
                 path: "book",
                 element: <BookPage />,

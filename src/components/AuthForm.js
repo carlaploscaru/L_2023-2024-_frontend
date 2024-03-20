@@ -21,7 +21,7 @@ console.log(data);
   return (
     <>
       <Form method="post" className={classes.form}>
-        <h1>{isLogin && "Log in"}
+        <h1 style={{marginLeft: '5%'}}>{isLogin && "Log in"}
           {!isLogin && !passwordRecovery && "Create a new user"}
           {passwordRecovery && "Recover password"}
         </h1>
@@ -38,7 +38,7 @@ console.log(data);
           </>
         )}
         
-        
+        <div className={classes.form1}>
         {!isLogin && !passwordRecovery && (
           <p>
             <label htmlFor="name">Name</label>
@@ -53,6 +53,8 @@ console.log(data);
           <label htmlFor="password">Password</label>
           <input id="password" type="password" name="password" />
         </p>}
+
+
         {!isLogin && !passwordRecovery && (
           <p>
             <label htmlFor="repeatPassword">Repeat Password</label>
@@ -74,6 +76,8 @@ console.log(data);
           <button disabled={isSubmitting}>
             {isSubmitting ? "Submitting" : "Save"}
           </button>
+        </div>
+
         </div>
       </Form>
     </>

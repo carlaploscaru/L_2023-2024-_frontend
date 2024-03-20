@@ -10,6 +10,7 @@ const BookList = ({ reservations }) => {
     const [showCommentPopup, setShowCommentPopup] = useState(false);
     const [comment, setComment] = useState(false);
     const [showCommentPopupRezId, setShowCommentPopupRezId] = useState(false);
+    const [blocked, setBlocked] = useState(false);
 
 
 
@@ -28,12 +29,23 @@ const BookList = ({ reservations }) => {
 
 
     const changePopupState = (id) => {
+     
+        setBlocked(false);//block only send bad comment
+
         setShowCommentPopup(!showCommentPopup);
         setShowCommentPopupRezId(id)
     };
 
     const submitCommentHandler = async (id) => {
         const token = getAuthToken();
+        const comment = document.getElementById(id).value;
+
+        if (containsCurseWords(comment)) {
+            setBlocked(true);
+            alert("Your comment was blocked");
+            setShowCommentPopup(false);
+            return;
+        }
 
         const response = await fetch(`http://localhost:8000/sale/${id}/comment`, {
             method: "PUT",
@@ -50,6 +62,7 @@ const BookList = ({ reservations }) => {
         reservations = reservations.map(rez => {//takes the values
             if (rez._id === id) {
                 rez.comment = comment;
+                
                 return rez;
             } else {
                 return rez;
@@ -57,6 +70,12 @@ const BookList = ({ reservations }) => {
         })
         setShowCommentPopup(false);
 
+    };
+
+    const containsCurseWords = (comment) => {
+        const curseWords = ['bad', 'worst'];
+        const words = comment.split(' ');
+        return words.some(word => curseWords.includes(word.toLowerCase()));
     };
 
 
@@ -114,7 +133,8 @@ const BookList = ({ reservations }) => {
                                     <button onClick={() => { submitCommentHandler(rez._id) }} style={{ color: "green" }}>Submit</button>
                                 </div>}
 
-                
+                                {blocked && <p>You are blocked</p>}
+
                                 {rez.comment && (
                                     <div style={{ marginTop: "10px", width: "320px", border: "1px solid #ccc", padding: "6px"}}>
                                         <p>Your comment:</p>

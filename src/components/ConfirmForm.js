@@ -7,7 +7,7 @@ const ConfirmForm = () => {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
   const navigate = useNavigate();
-  const [time, setTime] = useState(30);
+  const [time, setTime] = useState(300);
 
   useEffect(() => {
 

@@ -104,3 +104,44 @@
   .actions button[type='button']:hover {
     background-color: var(--color-gray-800);
   }
+
+  .item {
+    position: relative;
+  }
+  
+  .buttonContainer {
+    position: absolute;
+    bottom: 5px;
+    right: 3px;
+  }
+  
+
+
+
+
+
+  
+  .new_property {
+    position: relative;
+    text-decoration: none;
+    color: #333;
+    right:1%;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    background-color: #f1f1b9; 
+    transition: background-color 0.3s, color 0.3s;
+    overflow: hidden; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  
+  .new_property:hover::after,
+  .new_property:hover {
+    background-color: #007bff; 
+    color: white; 
+  }
+  
+  
+  
