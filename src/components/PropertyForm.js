@@ -425,5 +425,5 @@ export const action = async ({ request, params }) => {
     );
   }
 
-  return redirect("/properties");
+  return redirect("/my-properties");
 }

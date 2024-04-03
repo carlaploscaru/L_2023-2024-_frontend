@@ -13,10 +13,13 @@ const MyPropertyList = ({ properties }) => {
     const proceed = window.confirm("Are you sure?");
 
     if (proceed) {
-      submit({ name: id }, { method: "delete" });
+      console.log("okeyy",properties._id)
+      submit({ id: id }, { method: "delete" });
+      console.log("okeyy2")
     }
   };
 
+ 
 
   return (
     <>
@@ -75,7 +78,7 @@ const MyPropertyList = ({ properties }) => {
                           <br></br>
                           <br></br>
                           <div className={classes.buttonContainer}>
-                            <Link style={{ color: 'green' }} to="edit">Edit</Link>
+                            <Link style={{ color: 'green' }} to={`/properties/${property._id}/edit`}>Edit</Link>
                             <button style={{ color: 'red' }} onClick={() => startDeleteHandler(property._id)}>Delete</button>
                           </div>
                         </div>

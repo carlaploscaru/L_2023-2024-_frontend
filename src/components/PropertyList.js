@@ -14,19 +14,19 @@ const PropertyList = ({ properties }) => {
   const [ds, getDateStart] = useState();
   const [de, setDateEnd] = useState();
   const [pageNumber, setPageNumber] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(2);
 
-  
+
   const pageNumberArray = [];
-  let j=0;
-  console.log("totalllllllllllllllllllllllllll",properties.totalItems)
-  for (let i = 0; i <= properties.totalItems; i++) {
+  let j = 0;
+  console.log("totalllllllllllllllllllllllllll", properties.totalItems)
+  for (let i = 0; i < properties.totalItems; i++) {
     if (i % itemsPerPage === 0) {
       j = j + 1;
       pageNumberArray.push(j);
     }
   }
-
+  console.log("lllll", pageNumberArray.length)
   useEffect(() => {
 
     const getCategories = async () => {
@@ -46,8 +46,12 @@ const PropertyList = ({ properties }) => {
       }
     };
 
+    setSearchParams({ itemsperpage: itemsPerPage, page: pageNumber || 1, data_start: data_start ? data_start : "",
+     data_end: data_end ? data_end : "", tara: tara ? tara : "", 
+     oras: oras ? oras : "", category: category ? category : "" }) 
+
     getCategories();
-  }, [fetch]);
+  }, [fetch, pageNumber, itemsPerPage]); 
 
 
 
@@ -60,18 +64,18 @@ const PropertyList = ({ properties }) => {
 
   const dataStartChangeHandler = (event) => {
     if (data_start && (new Date(event.target.value)).getTime() > (new Date(data_end)).getTime()) {
-      setSearchParams({ page: pageNumber, data_start: "", data_end: data_end ? data_end : "", tara: tara ? tara : "", oras: oras ? oras : "", category: category ? category : "" })
+      setSearchParams({ itemsperpage: itemsPerPage, page: pageNumber, data_start: "", data_end: data_end ? data_end : "", tara: tara ? tara : "", oras: oras ? oras : "", category: category ? category : "" })
     } else {
-      setSearchParams({ page: pageNumber,data_start: event.target.value, data_end: data_end ? data_end : "", tara: tara ? tara : "", oras: oras ? oras : "", category: category ? category : "" })
+      setSearchParams({ itemsperpage: itemsPerPage, page: pageNumber, data_start: event.target.value, data_end: data_end ? data_end : "", tara: tara ? tara : "", oras: oras ? oras : "", category: category ? category : "" })
     }
   }
 
 
   const dataEndChangeHandler = (event) => {
     if ((new Date(event.target.value)).getTime() < (new Date(data_start)).getTime()) {
-      setSearchParams({page: pageNumber, data_start: data_start ? data_start : "", data_end: "", tara: tara ? tara : "", oras: oras ? oras : "", category: category ? category : "" })
+      setSearchParams({ itemsperpage: itemsPerPage, page: pageNumber, data_start: data_start ? data_start : "", data_end: "", tara: tara ? tara : "", oras: oras ? oras : "", category: category ? category : "" })
     } else {
-      setSearchParams({ page: pageNumber,data_start: data_start ? data_start : "", data_end: event.target.value, tara: tara ? tara : "", oras: oras ? oras : "", category: category ? category : "" })
+      setSearchParams({ itemsperpage: itemsPerPage, page: pageNumber, data_start: data_start ? data_start : "", data_end: event.target.value, tara: tara ? tara : "", oras: oras ? oras : "", category: category ? category : "" })
     }
   }
 
@@ -100,15 +104,37 @@ const PropertyList = ({ properties }) => {
 
   }
 
-  const PageClickHandler = (pageNumber,event) => {
+  const PageClickHandler = (pageNumber, event) => {
     event.preventDefault();
+    setSearchParams({ itemsperpage: itemsPerPage, page: pageNumber, data_start: data_start ? data_start : "",
+     data_end: data_end ? data_end : "", tara: tara ? tara : "", oras: oras ? oras : "",
+      category: category ? category : "" }) 
     setPageNumber(pageNumber)
   }
+  {/* ///////////////////items per page/////////////////////////////////////////////// */ }
+  const onSelectItemsPerPage = (event) => {
+    setItemsPerPage(event.target.value)
+    if (+searchParams.get("itemsperpage") !== +event.target.value) {
+      setPageNumber(1);
+    }
+  }
+  {/* ////////////////////////////////////////////////////////////////// */ }
 
-  console.log(pageNumber)
   return (
     <div className={classes.propertiesPage}>
       <div className={classes.propertiesForm}>
+
+        {/* ///////////////////items per page/////////////////////////////////////////////// */}
+        <span style={{ paddingRight: "10px" }}>Items per page</span>
+        <select defaultValue={itemsPerPage} style={{ padding: "5px" }} onClick={onSelectItemsPerPage}>
+          <option value={1}>1</option>
+          <option value={2}>2</option>
+          <option value={5}>5</option>
+          <option value={10}>10</option>
+          <option value={25}>25</option>
+        </select>
+        {/* ////////////////////////////////////////////////////////////////// */}
+
         <Form className={classes.form}>
           <p>
             <label htmlFor="tara">Country</label>
@@ -200,7 +226,7 @@ const PropertyList = ({ properties }) => {
                     <Rating
                       placeholderRating={property.rating}
                       emptySymbol={
-                        <img src={starGrey} className="icon" style={{ width: '20px', height: '20px'}} />
+                        <img src={starGrey} className="icon" style={{ width: '20px', height: '20px' }} />
                       }
                       placeholderSymbol={
                         <img src={starRed} className="icon" style={{ width: '20px', height: '20px' }} />
@@ -218,15 +244,21 @@ const PropertyList = ({ properties }) => {
         </ul>
 
         <ul style={{ listStyle: "none", display: "flex", justifyContent: "end" }}>
-          <li style={{ padding: "10px", backgroundColor: "grey", margin: "1px", borderRadius: "2px" }}>
-            <a href="#" style={{ textDecoration: "none" }} onClick={previousPageClickHandler}>{"<"}</a>
-          </li>
-         { pageNumberArray.map(pgNumber => <li style={{ padding: "10px", backgroundColor: +pgNumber===+pageNumber ? "green" : "red", margin: "1px", borderRadius: "2px" }}>
-            <a href="#" onClick={() => PageClickHandler(pgNumber)}>{pgNumber}</a>
+          {pageNumber > 1 &&
+            (<li style={{ padding: "10px", backgroundColor: "grey", margin: "1px", borderRadius: "2px" }}>
+              <a href="#" style={{ textDecoration: "none" }} onClick={previousPageClickHandler}>{"<"}</a>
+            </li>)
+          }
+          {pageNumberArray.map(pgNumber => <li style={{ padding: "10px", backgroundColor: +pgNumber === +pageNumber ? "green" : "red",
+           margin: "1px", borderRadius: "2px" }}>
+            <a href="#" onClick={(event) => PageClickHandler(pgNumber, event)}>{pgNumber}</a>
+            {/* pagin */}
           </li>)}
-          <li style={{ padding: "10px", backgroundColor: "grey", margin: "1px", borderRadius: "2px" }}>
-            <a href="#" style={{ textDecoration: "none" }} onClick={nextPageClickHandler}>{">"}</a>
-          </li>
+          {pageNumber < pageNumberArray.length && (
+            <li style={{ padding: "10px", backgroundColor: "grey", margin: "1px", borderRadius: "2px" }}>
+              <a href="#" style={{ textDecoration: "none" }} onClick={nextPageClickHandler}>{">"}</a>
+            </li>)
+          }
         </ul>
 
 

@@ -21,7 +21,7 @@ const loadProperties = async (filterArray) => {
   const token = getAuthToken();
   let response;
   if (Object.keys(filterArray).length === 0) {
-    response = await fetch(`http://localhost:8000/place?page=${filterArray["page"]}`, {
+    response = await fetch(`http://localhost:8000/place?itemsperpage=${filterArray["itemsperpage"]}&page=${filterArray["page"]}`, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + token,
@@ -29,7 +29,7 @@ const loadProperties = async (filterArray) => {
     });
   } else {
     response = await fetch(
-      `http://localhost:8000/place?page=${filterArray["page"]}&tara=${filterArray["tara"]}&oras=${filterArray["oras"]}&data_start=${filterArray["data_start"]}&data_end=${filterArray["data_end"]}`,
+      `http://localhost:8000/place?itemsperpage=${filterArray["itemsperpage"]}&page=${filterArray["page"]}&tara=${filterArray["tara"]}&oras=${filterArray["oras"]}&data_start=${filterArray["data_start"]}&data_end=${filterArray["data_end"]}`,
       {
         method: "GET",
         headers: {

@@ -8,18 +8,18 @@ import { tokenLoader } from "./utils/auth";
 import RecoverPasswordPage, { action as resetAction } from "./pages/RecoverPassword";
 import ErrorPage from "./pages/Error";
 import PropertiesRootLayout from "./pages/PropertiesRoot";
-import PropertiesPage, { loader as propertiesLoader} from "./pages/Properties";
+import PropertiesPage, { loader as propertiesLoader } from "./pages/Properties";
 import NewPropertyPage from "./pages/NewProperty";
 import { action as manipulatePropertyAction } from "./components/PropertyForm";
 import PropertyDetailPage, {
-  loader as propertyDetailLoader, 
+  loader as propertyDetailLoader,
   action as deletePropertyAction
 } from "./pages/PropertyDetail";
 import EditPropertyPage from "./pages/EditProperty";
 import ProfilePage, { loader as userProfileLoader, action as userProfileAction } from "./pages/Profile";
-import BookPage, {action as bookAction} from "./pages/Book";
-import ManagementPage, {loader as managementLoader, action as managementAction} from "./pages/Management";
-import MyPropertiesPage, { loader as MyPropertiesLoader, action as deleteOwnerPropertyAction} from "./pages/MyProperties";
+import BookPage, { action as bookAction } from "./pages/Book";
+import ManagementPage, { loader as managementLoader, action as managementAction } from "./pages/Management";
+import MyPropertiesPage, { loader as MyPropertiesLoader, action as multipleOwnerPropertyAction } from "./pages/MyProperties";
 
 
 const router = createBrowserRouter([
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
         id: "management",
         element: <ManagementPage />,
         loader: managementLoader,
-        action:managementAction
+        action: managementAction
       },
 
       ////////////////////////////////////////////
@@ -55,20 +55,13 @@ const router = createBrowserRouter([
         id: "my-properties",
         element: <MyPropertiesPage />,
         loader: MyPropertiesLoader,
-        children: [
-          {
-            index: true,
-            action: deleteOwnerPropertyAction,
-          },
-          // {
-          //   path: ":p1/edit",
-          //   element: <EditPropertyPage />,
-          //   action: manipulatePropertyAction,
-          // },
-        ]
+        action: multipleOwnerPropertyAction,
+       
       },
-  
-////////////////////////////////////////////////
+
+
+ 
+      ////////////////////////////////////////////////
       {
         path: "properties",
         element: <PropertiesRootLayout />,
@@ -88,12 +81,12 @@ const router = createBrowserRouter([
                 element: <PropertyDetailPage />,
                 //action: deletePropertyAction,
               },
-              // {
-              //   path: "edit",
-              //   element: <EditPropertyPage />,
-              //   action: manipulatePropertyAction,
-              //   //loader: checkAuthLoader,
-              // },
+              {
+                path: "edit",
+                element: <EditPropertyPage />,
+                action: manipulatePropertyAction,
+                //loader: checkAuthLoader,
+              },
               {
                 path: "book",
                 element: <BookPage />,

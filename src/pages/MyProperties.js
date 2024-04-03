@@ -44,27 +44,36 @@ const loadMyProperties = async (ownerId) => {
     //console.log ("11111111111111idddddddddddddddddddd",resData)
     return resData.place;
   }
+  
 };
 
 
-export const action = async ({ request, params }) => {
-  const propertyId = params.propertyId;
-
-  console.log("idd",propertyId )
-  const data = await request.formData();
-  const p1 = data.get("id")
-  console.log("idddddd",p1 )
+export const action = async ({ request }) => {
   const token = getAuthToken();
+  const data = await request.formData();
+  const propertyid = data.get("id")
+  const userId= data.get("userId")
 
-  const response = await fetch("http://localhost:8000/place/" + p1, {
+
+  if(propertyid && propertyid !==''){
+  const response = await fetch(`http://localhost:8000/place/${propertyid}`, {
     method: "DELETE",
     headers: {
       Authorization: "Bearer " + token,
+      "Content-Type": "application/json",
     },
   });
+  }
 
   return redirect("/my-properties");
 };
+
+
+
+
+
+
+
 
 
 
