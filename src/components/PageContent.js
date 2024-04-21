@@ -68,10 +68,22 @@ const PageContent = ({ title }) => {
     });
   };
 
+
+  const handleClick = () => {
+    const targetElement = document.getElementById('questionsId'); 
+    const targetOffsetTop = targetElement.offsetTop;
+  
+    window.scrollTo({
+      top: targetOffsetTop,
+      behavior: 'smooth' 
+    });
+  };
+
   return (
     <>
       <>
         <div className={classes.content}>
+        <div className={classes.sliderContainer}>
           <div className={classes.slider} onClick={handleSliderClick}>
             {photos.map((photo, index) => (
               <div
@@ -94,9 +106,25 @@ const PageContent = ({ title }) => {
             ))}
 
           </div>
-        </div>
-        <h1 style={{ display: "flex", justifyContent: "center" }}>Book your dream place</h1>
 
+          <div className={classes.overlay}>
+              <div className={classes.overlayContent}>
+                <h1 style={{fontSize:"50px"}}>Welcome to our website destined for booking places to live in. </h1>
+                <br></br>
+                <h2>If you have any questions do not hesitate to ask us!</h2>
+                <button style={{backgroundColor:"#0056b3",fontSize:"25px", padding:"2rem"}}className={classes.overlayButton} onClick={handleClick}>Ask a question </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      
+         
+
+
+        <h1 style={{ display: "flex", justifyContent: "center" }}>Book your dream place</h1>
         <div className={classes.styledBox}><p>Our page is destined to give a friendly environment for all kinds of needs regarding moving
           or traveling.</p></div>
 
@@ -111,7 +139,7 @@ const PageContent = ({ title }) => {
       </>
 
 
-      <div style={{ textAlign: "center" }} className={classes.content_questions}>
+      <div id="questionsId" style={{ textAlign: "center" }} className={classes.content_questions}>
         <h2 style={{ textAlign: "center" }}>Questions </h2>
         <form ref={form} onSubmit={sendEmail} className={classes.form}>
           <div className={classes.formGroup}>

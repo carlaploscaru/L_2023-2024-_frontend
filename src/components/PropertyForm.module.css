@@ -1,14 +1,17 @@
 .form {
   max-width: 40rem;
   margin: 2rem auto;
+  
 }
 
 .form label,
 .form input,
-.form textarea, 
+.form textarea,
 .form select {
   display: block;
   width: 100%;
+  color: black;
+  text-decoration: none;
 }
 
 .form input,
@@ -16,6 +19,7 @@
 .form select {
   font: inherit;
   padding: 0.25rem;
+  text-decoration: none;
 }
 
 .actions {

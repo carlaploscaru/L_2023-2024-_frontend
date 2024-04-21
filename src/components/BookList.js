@@ -87,17 +87,17 @@ const BookList = ({ reservations }) => {
 
     return (
         <>
-            <ul>
+            <ul  style={{ marginLeft :"8rem",borderTop: '2px solid blue', borderBottom: '2px solid blue', backgroundColor: 'lightblue', paddingTop: '1rem', paddingBottom:"2rem"}}>
                 <h1>My rezervations:</h1>
                 {
                     reservations.map(rez => {
                         return (
                             <>
                                 <li style={{ padding: "8px 16px", borderBottom: "1px solid #ddd", listStyleType: "none" }}>
-                                    <p>Country: {rez.tara}, City: {rez.oras}, Surface:{rez.suprafata}, </p>
-                                    <p>start: {rez.data_start}, end: {rez.data_end}</p>
-                                    <p>owner: {rez.owner}</p>
-                                    <p>Total price: {rez.price} {rez.currency} </p>
+                                    <p style={{color: "black", fontSize: "1.2em", textDecoration: "none"}}>Country: {rez.tara}, City: {rez.oras}, Surface:{rez.suprafata}, </p>
+                                    <p style={{textDecoration:"none",color:"grey"}}>start: {rez.data_start}, end: {rez.data_end}</p>
+                                    <p style={{textDecoration:"none",color:"grey"}}>owner: {rez.owner}</p>
+                                    <p style={{textDecoration:"none",color:"grey"}}>Total price: {rez.price} {rez.currency} </p>
                                 </li>
                                 <Rating
                                     placeholderRating={rez.rating}
@@ -116,7 +116,7 @@ const BookList = ({ reservations }) => {
 
                                 <button onClick={() => { changePopupState(rez._id) }}
                                     type="button"
-                                    style={{ color: "green" }}>
+                                    style={{ color: "#f0f0f0" , marginLeft: "30px"}}>
                                     Give comment
                                 </button>
                                 {showCommentPopup && showCommentPopupRezId === rez._id && <div className="popup">
@@ -136,8 +136,8 @@ const BookList = ({ reservations }) => {
                                 {blocked && <p>You are blocked</p>}
 
                                 {rez.comment && (
-                                    <div style={{ marginTop: "10px", width: "320px", border: "1px solid #ccc", padding: "6px"}}>
-                                        <p>Your comment:</p>
+                                    <div style={{ marginTop: "3px", width: "320px", border: "1px solid #ccc", padding: "8px",backgroundColor:"white", borderRadius:"2px"}}>
+                                        <p style={{color:"grey"}}>Your comment:</p>
                                         <div style={{overflow: "auto"}}>{rez.comment}</div>
                                     </div>
                                 )}

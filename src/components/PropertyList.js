@@ -125,7 +125,8 @@ const PropertyList = ({ properties }) => {
       <div className={classes.propertiesForm}>
 
         {/* ///////////////////items per page/////////////////////////////////////////////// */}
-        <span style={{ paddingRight: "10px" }}>Items per page</span>
+        <div style={{border:"1px solid darkgrey", padding:"1rem", borderRadius:"3px", backgroundColor:"darkgrey"}}>
+        <span style={{ paddingRight: "10px"}}>Items per page</span>
         <select defaultValue={itemsPerPage} style={{ padding: "5px" }} onClick={onSelectItemsPerPage}>
           <option value={1}>1</option>
           <option value={2}>2</option>
@@ -133,6 +134,7 @@ const PropertyList = ({ properties }) => {
           <option value={10}>10</option>
           <option value={25}>25</option>
         </select>
+        </div>
         {/* ////////////////////////////////////////////////////////////////// */}
 
         <Form className={classes.form}>
@@ -159,26 +161,27 @@ const PropertyList = ({ properties }) => {
 
           <p>
             <label htmlFor="data_start">Data start</label>
-            <input id="data_start" type="date" name="data_start" style={{ borderColor: data_start && data_start !== "" ? "green" : "red" }}
+            <input id="data_start" type="date" name="data_start" style={{ borderColor: data_start && data_start !== "" ? "#178ac0" : "red" }}
               onChange={dataStartChangeHandler}
               value={data_start} />
           </p>
           <p>
             <label htmlFor="data_end">Data end</label>
-            <input id="data_end" type="date" name="data_end" style={{ borderColor: data_end && data_end !== "" ? "green" : "red" }}
+            <input id="data_end" type="date" name="data_end" style={{ borderColor: data_end && data_end !== "" ? "#178ac0" : "red" }}
               onChange={dataEndChangeHandler}
               value={data_end} />
           </p>
           <div className={classes.actions}>
 
-            <button style={{ backgroundColor: "red" }}>
+            <button style={{ backgroundColor: "#f17318" }}>
               {"Search"}
             </button>
           </div>
         </Form>
       </div>
+
       <div className={classes.properties}>
-        <h1>All Properties</h1>
+        <h1 style={{marginLeft:"35rem", marginBottom:"5rem"}}>Properties</h1>
         <ul className={classes.list}>
           {properties.places.map((property) => (
             <li key={property.id} className={classes.item}>
@@ -187,36 +190,19 @@ const PropertyList = ({ properties }) => {
                 data_start !== "" &&
                 data_end &&
                 data_end !== "" &&
-                <Link to={`/properties/${property._id}`}>
-                  <img
-                    src={`http://localhost:8000/${property.image[0]}`}
-                    alt={property.title}
-                  ></img>
-                  <div style={{ color: 'white' }} className={classes.content}>
-                    <h2 >Category  {property.category}  {property.title}</h2>
-                    <p>Country:  {property.tara}, City:  {property.oras},Street:  {property.strada}, Surface:  {property.suprafata}</p>{/* <time>{property.oras}</time> */}
-                    <p>Owner:  {property.owner}</p>
-                    <h2 >Price:  {property.price}  {property.currency}</h2>
-                    <Rating
-                      placeholderRating={property.rating}
-                      emptySymbol={
-                        <img src={starGrey} className="icon" style={{ width: '20px', height: '20px' }} />
-                      }
-                      placeholderSymbol={
-                        <img src={starRed} className="icon" style={{ width: '20px', height: '20px' }} />
-                      }
-                      fullSymbol={
-                        <img src={starGold} className="icon" style={{ width: '20px', height: '20px' }} />
-                      }
-                      readonly={true}
-                    />
-                  </div>
+                <Link to={`/properties/${property._id}?itemsperpage=${itemsPerPage}&page=${pageNumber}&tara=${tara}&oras=${oras}&data_start=${data_start}&data_end=${data_end}`}>
+                 <div style={{width:"200px"}} className={classes.button_book}>
+                  <p style={{writingMode:"orizontal-rl", color:"white",textDecoration:"none", fontSize:"40px", paddingTop:"60px" }}>Book</p>
+                 </div>
+
+                 
                 </Link>}
               {
                 <>
                   <img
                     src={`http://localhost:8000/${property.image[0]}`}
                     alt={property.title}
+                    style={{border: "5px solid #333"}}
                   ></img>
                   <div style={{ color: 'white' }} className={classes.content}>
                     <h2 >Category  {property.category}  {property.title}</h2>
@@ -245,22 +231,35 @@ const PropertyList = ({ properties }) => {
 
         <ul style={{ listStyle: "none", display: "flex", justifyContent: "end" }}>
           {pageNumber > 1 &&
-            (<li style={{ padding: "10px", backgroundColor: "grey", margin: "1px", borderRadius: "2px" }}>
-              <a href="#" style={{ textDecoration: "none" }} onClick={previousPageClickHandler}>{"<"}</a>
+            (<li style={{ backgroundColor: "grey", margin: "1px", borderRadius: "2px" }}>
+              <a href="#" style={{paddingLeft:"12px", paddingRight:"12px", textDecoration: "none",color: "black" }} onClick={previousPageClickHandler}>{"<"}</a>
             </li>)
           }
-          {pageNumberArray.map(pgNumber => <li style={{ padding: "10px", backgroundColor: +pgNumber === +pageNumber ? "green" : "red",
+          {pageNumberArray.map(pgNumber => <li style={{paddingLeft:"12px", paddingRight:"12px",  backgroundColor: +pgNumber === +pageNumber ? "darkgrey" : "grey",
            margin: "1px", borderRadius: "2px" }}>
-            <a href="#" onClick={(event) => PageClickHandler(pgNumber, event)}>{pgNumber}</a>
+            <a href="#" style={{color: "black"}} onClick={(event) => PageClickHandler(pgNumber, event)}>{pgNumber}</a>
             {/* pagin */}
           </li>)}
           {pageNumber < pageNumberArray.length && (
-            <li style={{ padding: "10px", backgroundColor: "grey", margin: "1px", borderRadius: "2px" }}>
-              <a href="#" style={{ textDecoration: "none" }} onClick={nextPageClickHandler}>{">"}</a>
+            <li style={{paddingLeft:"12px", paddingRight:"12px", backgroundColor: "grey", margin: "1px", borderRadius: "2px" }}>
+              <a href="#" style={{ textDecoration: "none" ,color: "black"}} onClick={nextPageClickHandler}>{">"}</a>
             </li>)
           }
         </ul>
 
+
+
+        {/* <Link
+        to={{
+          pathname: '/destination',
+          state: {
+            data_start: filterArray['data_start'],
+            data_end: filterArray['data_end']
+          }
+        }}
+      >
+        Go to Destination
+      </Link> */}
 
       </div>
     </div>

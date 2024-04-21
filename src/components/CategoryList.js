@@ -53,33 +53,36 @@ const CategoryList = ({ categories }) => {
 
     return (
         <>
-            <ul>
-                <h1>Categories: </h1>
+            <ul style={{marginLeft:"4rem"}}>
+                <h1 style={{marginTop:"3rem"}}>Categories: </h1>
+
+                <button style={{ backgroundColor: "#178ac0" ,marginTop: "0.5rem",marginLeft:"1rem"}}
+                    onClick={() => {
+                        setShowForm(!showForm)
+                    }}>Add new category</button>
+                {showForm && (<>
+                    <input style={{marginLeft:"5px"}} name="title" id="title" onChange={onChangeCategoryHandler} ></input>
+                    <button onClick={() => { submitCategoryHandler() }} style={{ color: "black", marginLeft:"5px"}}>Submit</button>
+                </>)}
+                
                 {
                     categories.map((cat) => {
 
                         return (
-                            <li style={{ padding: "8px 16px", borderBottom: "1px solid #ddd", listStyleType: "none" }}>
-                                {cat._id !== selectedCategory && <div> {cat.title}</div>}
-                                {cat._id === selectedCategory && <div><input id="category" type="text" name="category"
+                            <li style={{ padding: "8px 16px", borderBottom: "1px solid blue", listStyleType: "none",marginTop:"3rem" }}>
+                                {cat._id !== selectedCategory && <div style={{border: '1px solid grey', padding:"1rem", borderRadius:"3px"}}> {cat.title}</div>}
+                                {cat._id === selectedCategory && <div><input id="category" type="text" name="category" style={{fontSize:"17px"}}
                                     value={selectedCategoryName} onChange={(event) => { setSelectedCategoryName(event.target.value) }} />{" "}
-                                    <button style={{ color: "green" }} onClick={editCategoryHandler}>Submit</button>{" "}
+                                    <button style={{ color: "black", marginTop:"2px" }} onClick={editCategoryHandler}>Submit</button>{" "}
                                 </div>}
-                                <button style={{ backgroundColor: "orange" }} onClick={() => { setSelectedCategoryName(cat.title); setSelectedCategory(cat._id); }}>Edit</button>
-                                <button style={{ backgroundColor: "red" }} onClick={() => { deleteCategoryHandler(cat._id) }}>Delete</button>
+                                <button style={{ backgroundColor: "green" ,marginTop:"1rem" }} onClick={() => { setSelectedCategoryName(cat.title); setSelectedCategory(cat._id); }}>Edit</button>
+                                <button style={{ backgroundColor: "orange" ,marginLeft: "20px"}} onClick={() => { deleteCategoryHandler(cat._id) }}>Delete</button>
 
                             </li>)
                     })
 
                 }
-                <button style={{ backgroundColor: "green" }}
-                    onClick={() => {
-                        setShowForm(!showForm)
-                    }}>New</button>
-                {showForm && (<>
-                    <input name="title" id="title" onChange={onChangeCategoryHandler} ></input>
-                    <button onClick={() => { submitCategoryHandler() }} style={{ color: "green" }}>Submit</button>
-                </>)}
+             
             </ul>
 
         </>

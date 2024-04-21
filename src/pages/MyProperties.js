@@ -2,17 +2,25 @@ import { Suspense } from "react";
 import { Await, defer, json, redirect, useLoaderData, useRouteLoaderData } from "react-router-dom"
 import { getAuthToken } from "../utils/auth";
 import MyPropertyList from "../components/MyPropertyList";
+import Footer from "../components/Footer";
 
 const MyPropertiesPage = () => {
   const { properties } = useLoaderData("my-properties");
 
   return (
+    <>
     <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
       <Await resolve={properties}>
         {(loadedProperties) => <MyPropertyList properties={loadedProperties} />}
       </Await>
     </Suspense>
-     
+    <br></br>
+    <br></br>
+    <br></br>
+    <br></br>
+    <br></br>
+    <Footer/>
+     </>
   );
 }
 
@@ -22,7 +30,6 @@ export default MyPropertiesPage;
 
 const loadMyProperties = async (ownerId) => {
   const token = getAuthToken();
-  //console.log ("11111111111111idddddddddddddddddddd",ownerId)
   const response = await fetch("http://localhost:8000/place/owner/" + ownerId, {
     method: "GET",
     headers: {
@@ -41,7 +48,6 @@ const loadMyProperties = async (ownerId) => {
     );
   } else {
     const resData = await response.json();
-    //console.log ("11111111111111idddddddddddddddddddd",resData)
     return resData.place;
   }
   

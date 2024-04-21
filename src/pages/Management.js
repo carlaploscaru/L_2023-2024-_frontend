@@ -13,6 +13,7 @@ import BookList from "../components/BookList";
 import ClientList from "../components/ClientList";
 import CategoryList from "../components/CategoryList";
 import UsersList from "../components/UsersList";
+import Footer from "../components/Footer";
 
 const ManagementPage = () => {
   const { categories, users } = useRouteLoaderData("management");
@@ -36,6 +37,15 @@ const ManagementPage = () => {
         </Suspense>
 
       </div>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <Footer/>
     </>
   );
 };

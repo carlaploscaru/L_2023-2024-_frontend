@@ -1,9 +1,30 @@
 import { json, redirect } from "react-router-dom";
 import AuthForm from "../components/AuthForm";
+import Footer from "../components/Footer";
 
 const AuthenticationPage = () => {
 
-  return <AuthForm />;
+  return <>
+  <br></br>
+  <br></br>
+  <AuthForm />
+<p></p>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+  <Footer/>
+  </>
 };
 
 

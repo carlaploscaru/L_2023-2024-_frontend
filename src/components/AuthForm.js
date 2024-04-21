@@ -20,25 +20,27 @@ console.log(data);
 
   return (
     <>
-      <Form method="post" className={classes.form}>
-        <h1 style={{marginLeft: '5%'}}>{isLogin && "Log in"}
+      
+        <h1 style={{marginLeft: '25%'}}>{isLogin && "Log in"}
           {!isLogin && !passwordRecovery && "Create a new user"}
           {passwordRecovery && "Recover password"}
         </h1>
-        {data && data.message && <p>{data.message}</p>}
+        <Form method="post" className={classes.form}>
+        <div className={classes.form1}>
+        {data && data.message && <p style={{color:"black", textDecoration:"none"}}>{data.message}</p>}
         {/* {data && data.data && data.data[0].msg && <p>{data.data[0].msg}</p>} */}
         {data && data.data && (
           <>
             {data.data.map((err) => {
               console.log("---", err);
               return (
-                <p key={err.msg}>{err.msg}</p>
+                <p key={err.msg} style={{color:"black", textDecoration:"none"}}>{err.msg}</p>
               )
             })}
           </>
         )}
         
-        <div className={classes.form1}>
+        
         {!isLogin && !passwordRecovery && (
           <p>
             <label htmlFor="name">Name</label>
@@ -67,10 +69,10 @@ console.log(data);
           </p>
         )}
         <div className={classes.actions}>
-          <Link to={`?mode=reset`}>
+          <Link to={`?mode=reset`} style={{ color: "black"}}>
             {"Recover password"}
           </Link>
-          <Link to={`?mode=${isLogin ? "signup" : "login"}`}>
+          <Link to={`?mode=${isLogin ? "signup" : "login"}`} style={{ color: "black" }}>
             {isLogin ? "Create new user" : "Login"}
           </Link>
           <button disabled={isSubmitting}>

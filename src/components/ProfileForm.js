@@ -62,6 +62,8 @@ const ProfileForm = ({ user }) => {
         className={classes.form}
         encType="multipart/form-data"
       >
+        <h1>Profile management</h1>
+        <br></br>
         {data && data.message && <p>{data.message}</p>}
         {data && data.data && (
           <>
@@ -71,6 +73,7 @@ const ProfileForm = ({ user }) => {
             })}
           </>
         )}
+        
         <p>
           {user && user.image && (
             <>
@@ -83,7 +86,7 @@ const ProfileForm = ({ user }) => {
             </>
           )}
         </p>
-        <p>{user.email}</p>
+        <p style={{color:"#313030", textDecoration:"none"}}>Email: {user.email}</p>
         <p>
           <label htmlFor="name">Name</label>
           <input id="name" type="text" name="name" defaultValue={user.name} />

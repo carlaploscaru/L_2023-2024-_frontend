@@ -34,18 +34,20 @@ const MyPropertyList = ({ properties }) => {
                 isActive ? classes.active : undefined
               }
               end
+              style={{color:"black"}}
             >
               New Property
             </NavLink>
           </li>
           </nav>
-          </ul>
-        </nav>
-         </header>
+        </ul>
+      </nav>
+    </header>
+    
           <div className={classes.propertiesPage}>
             <div className={classes.properties}>
 
-              <h1>My Properties</h1>
+              <h1 style={{marginBottom:"3rem"}}>My Properties</h1>
 
               <ul className={classes.list}>
                 {properties.map((property) => (
@@ -78,8 +80,8 @@ const MyPropertyList = ({ properties }) => {
                           <br></br>
                           <br></br>
                           <div className={classes.buttonContainer}>
-                            <Link style={{ color: 'green' }} to={`/properties/${property._id}/edit`}>Edit</Link>
-                            <button style={{ color: 'red' }} onClick={() => startDeleteHandler(property._id)}>Delete</button>
+                            <Link style={{ color: 'black', marginLeft:'1rem', backgroundColor:"green", padding:"8px",paddingLeft:"1rem", textAlign:"center"}} to={`/properties/${property._id}/edit`}>Edit</Link>
+                            <button style={{ color: 'black' }} onClick={() => startDeleteHandler(property._id)}>Delete</button>
                           </div>
                         </div>
 

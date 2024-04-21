@@ -276,7 +276,7 @@ const PropertyForm = ({ method, property }) => {
                   type="button"
                   id={img}
                   onClick={clearImageFromDatabase}
-                  style={{ color: 'black' }}
+                  style={{ color: 'black' , marginLeft:"5px"}}
                 >
                   x
                 </button>
@@ -297,7 +297,7 @@ const PropertyForm = ({ method, property }) => {
                 id="file-preview"
                 style={{ marginRight: "20px" }}
               ></img>
-              <button type="button" id="images" onClick={clearImageFromInput} style={{ color: 'black' }}>
+              <button type="button" id="images" onClick={clearImageFromInput} style={{ color: 'black',backgroundColor: "grey" }}>
                 Clear
               </button>
             </div>
@@ -334,14 +334,14 @@ const PropertyForm = ({ method, property }) => {
             );
           })}
         </p>
-        <button type="button" onClick={newImageHandler} style={{ color: "green", border: "2px solid green", fontSize: "30px", padding: "3px" }}>+</button>{"  "}
-        <button type="button" onClick={substractNumberOfImagesToLoad} style={{ color: "red", border: "2px solid red", fontSize: "30px", padding: "3px" }}>-</button>
+        <button type="button" onClick={newImageHandler} style={{ color: "green", border: "2px solid green", fontSize: "30px", padding: "3px",backgroundColor: "white" }}>+</button>{"  "}
+        <button type="button" onClick={substractNumberOfImagesToLoad} style={{width: "26px", color: "red", border: "2px solid red", fontSize: "30px", padding: "3px" ,backgroundColor: "white"}}>-</button>
 
         <div className={classes.actions}>
-          <button type="button" onClick={cancelHandler} disabled={isSubmitting}>
+          <button style={{ backgroundColor: "grey", textDecoration:"none"}} type="button" onClick={cancelHandler} disabled={isSubmitting}>
             Cancel
           </button>
-          <button disabled={isSubmitting}>
+          <button disabled={isSubmitting} style={{ backgroundColor: "#f17318", textDecoration:"none"}}>
             {isSubmitting ? "Submitting..." : "Save"}
           </button>
         </div>

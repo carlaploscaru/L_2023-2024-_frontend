@@ -5,6 +5,8 @@ export const action = () => {
   localStorage.removeItem("expiration");
   localStorage.removeItem("isAdmin");
   localStorage.removeItem("isOwner");
+  localStorage.removeItem("data_start");
+  localStorage.removeItem("data_end");
 
   return redirect("/");
 };

@@ -2,22 +2,35 @@ import { Suspense } from "react";
 import { Await, defer, json, redirect, useLoaderData, useRouteLoaderData } from "react-router-dom"
 import PropertyList from "../components/PropertyList";
 import { getAuthToken } from "../utils/auth";
+import Footer from "../components/Footer";
+import { useState } from "react";
 
 const PropertiesPage = () => {
   const { properties } = useLoaderData();
 
   return (
+    <>
+  
     <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
       <Await resolve={properties}>
         {(loadedProperties) => <PropertyList properties={loadedProperties} />}
       </Await>
     </Suspense>
+    <br></br>
+    <br></br>
+    <br></br>
+    <br></br>
+    <Footer/>
+</>
   );
 }
 
 
 
 const loadProperties = async (filterArray) => {
+
+
+
   const token = getAuthToken();
   let response;
   if (Object.keys(filterArray).length === 0) {
@@ -29,7 +42,7 @@ const loadProperties = async (filterArray) => {
     });
   } else {
     response = await fetch(
-      `http://localhost:8000/place?itemsperpage=${filterArray["itemsperpage"]}&page=${filterArray["page"]}&tara=${filterArray["tara"]}&oras=${filterArray["oras"]}&data_start=${filterArray["data_start"]}&data_end=${filterArray["data_end"]}`,
+      `http://localhost:8000/place?itemsperpage=${filterArray["itemsperpage"]}&page=${filterArray["page"]}&category=${filterArray["category"]}&tara=${filterArray["tara"]}&oras=${filterArray["oras"]}&data_start=${filterArray["data_start"]}&data_end=${filterArray["data_end"]}`,
       {
         method: "GET",
         headers: {
@@ -44,7 +57,7 @@ const loadProperties = async (filterArray) => {
   } else {
     const resData = await response.json();
 
-
+ 
 
     return resData;
   }

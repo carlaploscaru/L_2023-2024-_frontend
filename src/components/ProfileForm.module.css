@@ -1,6 +1,10 @@
 .form {
-    max-width: 40rem;
-    margin: 2rem auto;
+    max-width: 50rem;
+    margin-left: 8rem;
+    margin-top: 2rem;
+    border-left: 1px solid rgb(129, 125, 125);
+    padding-left: 3rem;
+    
   }
   
   .form label,
@@ -8,12 +12,15 @@
   .form textarea {
     display: block;
     width: 100%;
+    color: #313030;
+    text-decoration: none;
   }
   
   .form input,
   .form textarea {
     font: inherit;
     padding: 0.25rem;
+    
   }
   
   .actions {
@@ -28,8 +35,8 @@
     cursor: pointer;
     padding: 0.5rem 1.5rem;
     border-radius: 4px;
-    background-color: var(--color-gray-300);
-    color: var(--color-gray-800);
+    background-color: rgb(133, 130, 130);
+    color: #201c1c;
     border: none;
   }
   
@@ -40,9 +47,9 @@
   }
   
   .actions button:hover {
-    background-color: var(--color-primary-300);
+    background-color: #b6b0b0;
   }
   
   .actions a:hover {
-    background-color: var(--color-gray-800);
+    background-color: #d2c6c6;
   }

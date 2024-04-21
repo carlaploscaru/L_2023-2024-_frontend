@@ -4,10 +4,12 @@
   text-align: center;
 }
 
-.event img {
+.property img {
   width: 30rem;
-  border-radius: 4px;
+  border-radius: 15px;
 }
+
+
 
 .actions {
   display: flex;
@@ -29,3 +31,9 @@
   border: none;
   color: var(--color-primary-800);
 }
+
+.bullets img {
+  height: 350px; 
+}
+
+

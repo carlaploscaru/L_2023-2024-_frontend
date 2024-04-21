@@ -1,5 +1,5 @@
 import { Form, NavLink, useRouteLoaderData } from "react-router-dom";
-
+import Icon from "./assets/icon.png";
 import classes from "./MainNavigation.module.css";
 import { getIsAdmin } from "../utils/auth";
 
@@ -9,6 +9,7 @@ const MainNavigation = ({ ownerId }) => {
 
   return (
     <header className={classes.header}>
+      <img  src={Icon} className={classes.icon} />
       <nav>
         <ul className={classes.list}>
 
@@ -40,7 +41,7 @@ const MainNavigation = ({ ownerId }) => {
                   isActive ? classes.active : undefined
                 }
               >
-                App Managemant
+                Managemant
               </NavLink>
             </li>
           )}
@@ -66,7 +67,6 @@ const MainNavigation = ({ ownerId }) => {
               </NavLink>
             </li>
           )}
-          {/* /////////////////////////////////////////////// */}
           {token && (
             <li>
               <NavLink
@@ -79,7 +79,6 @@ const MainNavigation = ({ ownerId }) => {
               </NavLink>
             </li>
           )}
- {/* /////////////////////////////////////////////// */}
           {token && (
             <li>
               <Form action="/logout" method="post">

@@ -11,6 +11,7 @@ import { Suspense } from "react";
 import ProfileForm from "../components/ProfileForm";
 import BookList from "../components/BookList";
 import ClientList from "../components/ClientList";
+import Footer from "../components/Footer";
 
 const ProfilePage = () => {
   const data = useActionData();
@@ -39,6 +40,23 @@ const ProfilePage = () => {
           </Await>
         </Suspense>
       </div>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <Footer/>
     </>
   );
 };

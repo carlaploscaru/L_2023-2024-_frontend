@@ -4,6 +4,8 @@
     padding: 2rem;
     display: flex;
     justify-content: space-between;
+    margin-left: 12rem;
+    margin-top: 2rem;
   }
   
   .list {
@@ -14,8 +16,7 @@
  
   .list a {
     text-decoration: none;
-    color: rgb(53, 34, 148);
-    background-color: #6682f4; 
+    background-color: #333;
     color: #fff; 
     border: none; 
     padding: 10px 20px; 
@@ -23,12 +24,10 @@
     font-weight: bold; 
     border-radius: 5px; 
     cursor: pointer;
-    transition: background-color 0.3s ease;
   }
   
-  .list a:hover,
-  .list a.active {
-    background-color: #3e3e45;
+  .list a:hover {
+    background-color: #f17318;
   }
 
 

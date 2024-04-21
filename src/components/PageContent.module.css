@@ -1,10 +1,12 @@
 .content {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
-
-.content {
+.sliderContainer {
   position: relative;
+  flex-grow: 1;
 }
 
 .follow p {
@@ -19,14 +21,16 @@
 }
 
 .slider {
-  position: static;
-  width: 100%;
-  height: 600px;
+  position: relative;
+  width: 100%; 
+  overflow: hidden;
+  height: 800px;
 }
 
 
 .slide {
-  position: absolute;
+  display: none;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;
@@ -35,15 +39,24 @@
   transition: opacity 0.5s ease;
 }
 
+
+
 .slide.active {
+  display: block;
   opacity: 1;
+  
 }
 
+
 .slider img {
-  width: 80%;
+  width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
+
+
+
 
 .bullets {
   position: absolute;
@@ -57,11 +70,13 @@
 
 
 .bullet {
+  display: inline-block;
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #3d3939;
+  background-color: #ccc;
   cursor: pointer;
+  margin: 0 5px;
   transition: background-color 0.3s ease;
 }
 
@@ -71,9 +86,43 @@
 
 
 
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5); 
+}
+
+.overlayContent {
+  position: absolute;
+  top: 40%; 
+  left: 50px;
+  color: white;
+  text-align: left;
+  padding-left: 20px; 
+}
+
+.overlayButton {
+    opacity: 0.7; 
+    transition: opacity 0.3s; 
+    background-color: transparent; 
+    border: 0.5px solid orange; 
+    margin-left: 5rem;
+}
+
+.overlayButton:hover {
+  opacity: 1; 
+}
+
+
 .styledBox {
   display: inline-block;
-  background-color: #f0f0f0;
+  background-color: #ffffff;
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 20px;
@@ -186,7 +235,7 @@ textarea {
 }
 
 button {
-  background-color: #007bff;
+  background-color: #f17318;
   color: white;
   border: none;
   border-radius: 4px;
@@ -197,3 +246,13 @@ button {
 button:hover {
   background-color: #0056b3;
 }
+
+
+
+
+
+
+
+
+
+

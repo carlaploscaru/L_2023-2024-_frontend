@@ -48,8 +48,6 @@ const router = createBrowserRouter([
         loader: managementLoader,
         action: managementAction
       },
-
-      ////////////////////////////////////////////
       {
         path: "/my-properties",
         id: "my-properties",
@@ -58,10 +56,6 @@ const router = createBrowserRouter([
         action: multipleOwnerPropertyAction,
        
       },
-
-
- 
-      ////////////////////////////////////////////////
       {
         path: "properties",
         element: <PropertiesRootLayout />,

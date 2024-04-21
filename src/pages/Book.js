@@ -11,6 +11,7 @@ import React from 'react'
  import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CardForm from "../components/CardForm";
+import Footer from "../components/Footer";
 
 
 
@@ -88,6 +89,12 @@ const BookPage = () => {
         </Modal>
       }
       <BookForm />
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <Footer/>
     </>
   );
 };

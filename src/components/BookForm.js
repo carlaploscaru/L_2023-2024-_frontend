@@ -1,10 +1,12 @@
 import {
-    Form, Link, useActionData, useNavigate, useRouteLoaderData,
+    Form, Link, useActionData, useNavigate, useRouteLoaderData, useSearchParams,
 } from "react-router-dom";
 
-import classes from './AuthForm.module.css';
+import classes from './BookForm.module.css';
 import PropertyItem from "./PropertyItem";
 import { useState } from "react";
+
+
 
 
 const BookForm = () => {
@@ -17,6 +19,14 @@ const BookForm = () => {
     const isSubmitting = navigation.state === "submitting";
     const data = useActionData();
     const propertyData = useRouteLoaderData("property-detail");
+    const [searchParams, setSearchParams] = useSearchParams();
+    const data_start = searchParams.get("data_start");
+    const data_end = searchParams.get("data_end");
+    const tara = searchParams.get("tara");
+    const oras = searchParams.get("oras");
+    const category = searchParams.get("category");
+    const data_starts = localStorage.getItem("data_start");
+    const data_ends = localStorage.getItem("data_end");
 
 
     const dataStartHandler = (event) => {
@@ -64,12 +74,7 @@ const BookForm = () => {
             <PropertyItem property={propertyData.property} />
             <Form method="post" className={classes.form}>
                 <h1>Book this property</h1>
-                <Link
-                    onClick={() => {
-                        setAddReciptData(!addRecieptData);
-                    }}
 
-                >Add facturing data</Link>
                 {data && data.message && <p>{data.message}</p>}
                 {data && data.data && (
                     <>
@@ -82,13 +87,13 @@ const BookForm = () => {
                     </>
                 )}
                 <p>
-                    <label htmlFor="data_start">Data_start</label>
-                    <input style={{ backgroundColor: "black", color: "white" }} id="data_start" type="date" name="data_start" onChange={dataStartHandler} />
+                    <label style={{ textDecoration:"none"}} htmlFor="data_start">Data_start</label>
+                    <input value={data_starts} style={{ backgroundColor: "white", color: "black",fontSize:"20px"}} id="data_start" type="date" name="data_start" onChange={dataStartHandler} />
                 </p>
 
                 <p>
                     <label htmlFor="data_end">Data_end</label>
-                    <input style={{ backgroundColor: "black", color: "white" }} id="data_end" type="date" name="data_end" onChange={dataEndHandler} />
+                    <input value={data_ends} style={{ backgroundColor: "white", color: "black" ,fontSize:"20px"}} id="data_end" type="date" name="data_end" onChange={dataEndHandler} />
                 </p>
 
                 {dataStartSelected && dataEndSelected &&
@@ -96,16 +101,16 @@ const BookForm = () => {
                         <label htmlFor="price">Price:</label>
                         <input id="price" type="text" name="price" value={price} />
                         <label>{propertyData.property.currency}</label>
-                        
+
                     </p>}
                 {addRecieptData && (<p> <label htmlFor="nume">Name:</label>
-                    <input style={{ backgroundColor: "black", color: "white" }} id="nume" type="text" name="nume" /></p>)}
+                    <input style={{ backgroundColor: "white", color: "black",fontSize:"20px" }} id="nume" type="text" name="nume" /></p>)}
 
                 {addRecieptData && (<p> <label htmlFor="adresa">Adress:</label>
-                    <input style={{ backgroundColor: "black", color: "white" }} id="adresa" type="text" name="adresa" /></p>)}
+                    <input style={{ backgroundColor: "white", color: "black",fontSize:"20px" }} id="adresa" type="text" name="adresa" /></p>)}
 
                 {addRecieptData && (<p> <label htmlFor="telefon">Phone number:</label>
-                    <input style={{ backgroundColor: "black", color: "white" }} id="telefon" type="text" name="telefon" /></p>)}
+                    <input style={{ backgroundColor: "white", color: "black",fontSize:"20px" }} id="telefon" type="text" name="telefon" /></p>)}
 
                 {addRecieptData && (<p> <label htmlFor="pay_type">Payment type:</label>
                     <div style={{ display: "flex" }}>
@@ -119,7 +124,12 @@ const BookForm = () => {
                 </p>
                 )}
 
-
+                <Link
+                    onClick={() => {
+                        setAddReciptData(!addRecieptData);
+                    }}
+                    style={{ fontSize: "20px", color: "black" , marginTop:"2rem", textDecoration:"underline blue"}}
+                >Add facturing data</Link>
 
                 <div className={classes.actions}>
                     <button disabled={isSubmitting}>

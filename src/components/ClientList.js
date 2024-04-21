@@ -7,17 +7,17 @@ import { isDisabled } from "@testing-library/user-event/dist/utils";
 const ClientList = ({ clients }) => {
     return (
         <>
-            <ul>
+            <ul style={{ marginLeft :"2rem",borderTop: '2px solid blue', borderBottom: '2px solid blue', backgroundColor: 'lightblue', paddingTop: '1rem', paddingBottom:"2rem"}}>
                 <h1>My clients: </h1>
                 {
                     clients.map(rez => {
 
                         return (
                             <li style={{ padding: "8px 16px", borderBottom: "1px solid #ddd", listStyleType: "none" }}>
-                                <p>Country: {rez.tara}, City: {rez.oras}, Surface:{rez.suprafata}, </p>
-                                <p>start: {rez.data_start}, end: {rez.data_end}</p>
-                                <p>clints: {rez.client}</p>
-                                <p>Total price: {rez.price} {rez.currency}</p>
+                                <p style={{color: "black", fontSize: "1.2em", textDecoration: "none"}}>Country: {rez.tara}, City: {rez.oras}, Surface:{rez.suprafata}, </p>
+                                <p style={{textDecoration:"none",color:"grey"}}>start: {rez.data_start}, end: {rez.data_end}</p>
+                                <p style={{textDecoration:"none",color:"grey"}}>clints: {rez.client}</p>
+                                <p style={{textDecoration:"none",color:"grey"}}>Total price: {rez.price} {rez.currency}</p>
                                 <Rating
                                     placeholderRating={rez.rating}
                                     emptySymbol={
@@ -31,8 +31,8 @@ const ClientList = ({ clients }) => {
                                     }
                                     readonly={true}
                                 />
-                                
-                                {/* {rez.comment && <p>Comment: {rez.comment} From:{rez.client}</p>} */}
+                                 {rez.comment && <p  style={{textDecoration:"none",color:"black",border: '1px solid darkgrey',
+                                  backgroundColor: 'white', padding: '1rem', borderRadius:"1px"}}>{rez.comment} --- From user: {rez.client}</p>} 
 
                             </li>)
                     })
