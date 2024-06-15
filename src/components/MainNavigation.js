@@ -2,90 +2,130 @@ import { Form, NavLink, useRouteLoaderData } from "react-router-dom";
 import Icon from "./assets/icon.png";
 import classes from "./MainNavigation.module.css";
 import { getIsAdmin } from "../utils/auth";
+import { getUserId } from "../utils/auth";
+import { useState } from "react";
 
-const MainNavigation = ({ ownerId }) => {
+const MainNavigation = ({ ownerId, user }) => {
   const { token } = useRouteLoaderData("root");
   const isAdmin = getIsAdmin();
+  const userId = getUserId();
+
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleMenuToggle = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleMenuClose = () => {
+    setIsOpen(false);
+  };
+
 
   return (
     <header className={classes.header}>
-      <img  src={Icon} className={classes.icon} />
+      <img src={Icon} className={classes.icon} />
       <nav>
         <ul className={classes.list}>
-
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              isActive ? classes.active : undefined
-            }
-          >
-            Home
-          </NavLink>
-          {token && (
-            <li>
-              <NavLink
-                to="/me"
-                className={({ isActive }) =>
-                  isActive ? classes.active : undefined
-                }
-              >
-                Profile
-              </NavLink>
-            </li>
-          )}
-          {isAdmin === "true" && token && (
-            <li>
-              <NavLink
-                to="/management"
-                className={({ isActive }) =>
-                  isActive ? classes.active : undefined
-                }
-              >
-                Managemant
-              </NavLink>
-            </li>
-          )}
-          {!token && (
+          <div className={classes.list1}>
             <NavLink
-              to="/auth?mode=login"
+              to="/"
               className={({ isActive }) =>
                 isActive ? classes.active : undefined
               }
             >
-              Login
+              Home
             </NavLink>
-          )}
-          {token && (
-            <li>
+
+            {isAdmin === "true" && token && (
+              <li>
+                <NavLink
+                  to="/management"
+                  className={({ isActive }) =>
+                    isActive ? classes.active : undefined
+                  }
+                >
+                  Management
+                </NavLink>
+              </li>
+            )}
+            {!token && (
               <NavLink
-                to="/properties"
+                to="/auth?mode=login"
                 className={({ isActive }) =>
                   isActive ? classes.active : undefined
                 }
               >
-                Properties
+                Login
               </NavLink>
-            </li>
-          )}
-          {token && (
-            <li>
-              <NavLink
-                 to="/my-properties"
-                className={({ isActive }) =>
-                  isActive ? classes.active : undefined
-                }
-              >
-                 My properties
-              </NavLink>
-            </li>
-          )}
-          {token && (
-            <li>
-              <Form action="/logout" method="post">
-                <button>Logout</button>
-              </Form>
-            </li>
-          )}
+            )}
+            {token && (
+              <li>
+                <NavLink
+                  to="/properties"
+                  className={({ isActive }) =>
+                    isActive ? classes.active : undefined
+                  }
+                >
+                  Properties
+                </NavLink>
+              </li>
+            )}
+          </div>
+
+          {userId !== null &&
+            <div className={classes.list2}>
+              <p onClick={handleMenuToggle} style={{ textDecoration: "none", fontSize: "2rem", display: "flex", textAlign: "center", writingMode: " vertical-lr" }} className={classes.menuTrigger}>
+                |||
+              </p>
+              {isOpen && (
+                <div className={classes.dropdown}>
+
+                  {token && (
+                    <NavLink
+                      to="/my-properties"
+                      onClick={handleMenuClose}
+                      className={classes.menuLink}
+                    >
+                      My Properties
+                    </NavLink>
+                  )}
+                  
+
+                  
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                  {token && (
+                      <NavLink
+                        to="/me"
+                        onClick={handleMenuClose}
+                        className={classes.menuLink}
+                        style={{marginRight:"1rem"}}
+                      >
+                        Profile
+                      </NavLink>
+                    )}
+                    <p>{user && user.image && (
+                      <><img
+                        style={{ width: '60px', height: '60px', borderRadius: '50%',marginBottom:"2rem" }}
+                        src={`http://localhost:8000/${user.image}`}
+                        alt="User Avatar" />
+                      </>)}
+                    </p>
+                  </div>
+
+
+                  {token && (
+                    <li>
+                      <Form action="/logout" method="post"  >
+                        <button >Logout</button>
+                      </Form>
+                    </li>
+                  )}
+
+                </div>
+              )}
+            </div>}
+
         </ul>
       </nav>
     </header>

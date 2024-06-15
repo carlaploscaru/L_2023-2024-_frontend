@@ -129,6 +129,8 @@
     transition: background-color 0.3s, color 0.3s;
     overflow: hidden; 
     display: flex;
+    margin-left: 30rem;
+    margin-right: 30rem;
     justify-content: center;
     align-items: center;
   }

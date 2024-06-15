@@ -26,28 +26,35 @@ const ConfirmForm = () => {
     <>
       
       <Form method="post" className={classes.form}>
-        {data && data.message && <p>{data.message}</p>}
+      <div className={classes.form1}>
+        {data && data.message && <p style={{ color: "black" }}>{data.message}</p>}
         {/* {data && data.data && data.data[0].msg && <p>{data.data[0].msg}</p>} */}
         {data && data.data && (
           <>
             {data.data.map((err) => {
               console.log("---", err);
               return (
-                <p key={err.msg}>{err.msg}</p>
+                <p style={{ color: "black" }} key={err.msg}>{err.msg}</p>
               )
             })}
           </>
         )}
-        <p>Your confirmation token was sent via email. You can click the link to activate your account or copy the token and paste it in the form below.</p>
-        {`You have ${time} secunde left.`}
+        
+        <p style={{ color: "black", textDecoration:"none", fontWeight:"bold" }}>Your confirmation token was sent via email. You can click the link to activate your account or copy the token and paste it in the form below.
+       {`You have ${time} secunde left.`}</p>
+     
+
+
+
         <p>
-          <label htmlFor="confirmToken">Confirmation token</label>
+          <label htmlFor="confirmToken" style={{ color: "black", textDecoration:"none" , fontWeight:"bold", fontSize:"20px"}}>Confirmation token</label>
           <input id="confirmToken" type="text" name="confirmToken" />
           {/* scot required */}
         </p>
         <button style={{ background: "green" }} disabled={isSubmitting}>
           {isSubmitting ? "Submitting" : "Save"}
         </button>
+        </div>
       </Form>
     </>
   );

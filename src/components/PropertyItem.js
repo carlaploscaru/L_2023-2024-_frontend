@@ -11,10 +11,10 @@ import 'swiper/css/navigation';
 import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules';
 import { useEffect } from "react";
 
-const PropertyItem = ({ property }) => {
+const PropertyItem = ({ property, clients }) => {
 const location = useLocation();
 const queryParams = new URLSearchParams(location.search);
-
+console.log("fffffffff22222222222222", clients)
 const updateData =() => {
     localStorage.setItem('data_start', queryParams.get('data_start'));
     localStorage.setItem('data_end', queryParams.get('data_end'));
@@ -119,14 +119,16 @@ const updateData =() => {
         property.image && property.image.map(img => <img width={300} height={300} style={{margin :"10px"}}src={`http://localhost:8000/${img}`} />)
       } */}
 
+     
+
 
       {<menu className={classes.actions}>
         {/* {userId && (userId === property.owner.id) && showButtons && <Link to="edit">Edit</Link>}
         {userId && (userId === property.owner.id) && showButtons && <button onClick={startDeleteHandler}>Delete</button>} */}
-
-
         {showButtons && <Link onClick={() => updateData()} to={'book'} style={{ backgroundColor: "#f17318", padding: "1rem", borderRadius: "3px", marginRight: "40px", color: "white" }}>Book</Link>}
       </menu>}
+
+     
 
     </article>
   );

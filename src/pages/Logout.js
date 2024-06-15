@@ -7,6 +7,7 @@ export const action = () => {
   localStorage.removeItem("isOwner");
   localStorage.removeItem("data_start");
   localStorage.removeItem("data_end");
+  localStorage.removeItem("userId");
 
   return redirect("/");
 };

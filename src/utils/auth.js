@@ -1,4 +1,4 @@
-import { redirect } from "react-router-dom";
+import { json, redirect } from "react-router-dom";
 
 
 export const getTokenDuration = () => {
@@ -6,7 +6,7 @@ export const getTokenDuration = () => {
   const expirationDate = new Date(storedExpirationDate);
   const now = new Date();
   const duration = expirationDate.getTime() - now.getTime();
-
+ 
   return duration;
 };
 
@@ -26,10 +26,44 @@ export const getAuthToken = () => {
   return token;
 };
 
+
+const loadMe = async () => {
+  //const token = getAuthToken();
+  const token = localStorage.getItem("token");
+  if (!token) {
+    return null;
+  }
+  const response = await fetch("http://localhost:8000/user/me", {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+
+  if (!response.ok) {
+    throw json(
+      {
+        message: "Could not fetch my profile data!",
+      },
+      {
+        status: 500,
+      }
+    );
+  } else {
+    const resData = await response.json();
+
+    console.log("resData.me", resData.me);
+    return resData.me;
+  }
+};
+
+
+
 export const tokenLoader = () => {
 
   return {
     token: getAuthToken(),
+    user: loadMe()
   };
 };
 

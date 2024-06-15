@@ -18,8 +18,6 @@ import Footer from "../components/Footer";
 const ManagementPage = () => {
   const { categories, users } = useRouteLoaderData("management");
  
-  
-
   return (
     <>
       <div style={{ display: "flex" ,gap: "300px"}}>

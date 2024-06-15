@@ -96,10 +96,10 @@ const BookForm = () => {
                     <input value={data_ends} style={{ backgroundColor: "white", color: "black" ,fontSize:"20px"}} id="data_end" type="date" name="data_end" onChange={dataEndHandler} />
                 </p>
 
-                {dataStartSelected && dataEndSelected &&
+                {
                     <p>
                         <label htmlFor="price">Price:</label>
-                        <input id="price" type="text" name="price" value={price} />
+                        <input id="price" type="text" name="price" style={{ backgroundColor: "white", color: "black",fontSize:"20px"}} value={propertyData.property.price} />
                         <label>{propertyData.property.currency}</label>
 
                     </p>}

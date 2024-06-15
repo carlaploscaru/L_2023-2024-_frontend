@@ -1,5 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import RootLayout from "./pages/Root";
+import RootLayout ,{ loader as profileImageLoader}from "./pages/Root";
 import AuthenticationPage, { action as authAction } from "./pages/Authentication";
 import HomePage from "./pages/Home";
 import ConfirmPage, { action as confirmAction } from "./pages/Confirmation";

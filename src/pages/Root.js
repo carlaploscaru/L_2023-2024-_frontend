@@ -1,12 +1,14 @@
-import { Outlet, useLoaderData, useSubmit } from "react-router-dom";
+import { Await, Outlet, useLoaderData, useRouteLoaderData, useSubmit } from "react-router-dom";
 import MainNavigation from "../components/MainNavigation";
 import { useEffect } from "react";
 import { getTokenDuration } from "../utils/auth";
+import { Suspense } from "react";
 
 const RootLayout = () => {
-  const {token} = useLoaderData();
-
+  const { token } = useLoaderData();
+  const { user } = useRouteLoaderData("root");
   const submit = useSubmit();
+
 
   useEffect(() => {
     if (!token) {
@@ -28,12 +30,20 @@ const RootLayout = () => {
 
   return (
     <>
-      <MainNavigation />
+      <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
+        <Await resolve={user}>
+          {(loadedUser) => <MainNavigation user={loadedUser} />}
+        </Await>
+      </Suspense>
+      {/* <MainNavigation /> */}
       <main>
-        <Outlet/>
+        <Outlet />
       </main>
     </>
   );
 };
 
+
+
 export default RootLayout;
+

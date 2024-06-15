@@ -10,9 +10,11 @@ import { getAuthToken } from "../utils/auth";
 import { Suspense, useEffect } from "react";
 import PropertyList from "../components/PropertyList";
 import Footer from "../components/Footer";
+import ClientList from "../components/ClientList";
+import ClientsListForComments from "../components/ClientsListForComments";
 
 const PropertyDetailPage = () => {
-  const { property, properties } =
+  const { property, properties,clients } =
     useRouteLoaderData("property-detail");
 
     useEffect(() => {
@@ -20,11 +22,26 @@ const PropertyDetailPage = () => {
       
   return (
     <>
+   
       <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>} >
         <Await resolve={property} >
           {(loadedProperty) => <PropertyItem property={loadedProperty} />}
         </Await>
       </Suspense>
+      <br></br>
+      <br></br>
+      <br></br>
+      <div style={{ marginLeft:"32rem" }}>
+      <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
+          <Await resolve={clients}>
+            {(loadedRezv)=> <ClientsListForComments clients={loadedRezv}/>}
+          </Await>
+        </Suspense>
+        </div>
+        <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
       <Suspense>
         <Await resolve={properties}>
           {(loadedProperties) => <PropertyList properties={loadedProperties} />}
@@ -41,6 +58,37 @@ const PropertyDetailPage = () => {
 };
 
 export default PropertyDetailPage;
+
+
+
+const loadClients = async () => {
+  const token = getAuthToken();
+
+  const response = await fetch("http://localhost:8000/sale/clients", {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+
+  if (!response.ok) {
+    throw json(
+      {
+        message: "Could not fetch my profile data!",
+      },
+      {
+        status: 500,
+      }
+    );
+  } else {
+    const resData = await response.json();
+console.log("ffffffffffffffffffffffffffffffffffffff",resData)
+   
+    return resData.clients;
+  }
+};
+
+
 
 const loadProperty = async (id) => {
   const token = getAuthToken();
@@ -135,9 +183,11 @@ export const loader = async ({ request, params }) => {
   return defer({
     property: await loadProperty(propertyId),
     properties: loadProperties(cleanFilterArray),
-   
+    clients: loadClients(),
   });
 };
+
+
 
 // export const action = async ({ request, params }) => {
 //   const propertyId = params.propertyId;

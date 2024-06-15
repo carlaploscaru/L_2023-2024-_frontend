@@ -112,7 +112,7 @@ const PageContent = ({ title }) => {
                 <h1 style={{fontSize:"50px"}}>Welcome to our website destined for booking places to live in. </h1>
                 <br></br>
                 <h2>If you have any questions do not hesitate to ask us!</h2>
-                <button style={{backgroundColor:"#0056b3",fontSize:"25px", padding:"2rem"}}className={classes.overlayButton} onClick={handleClick}>Ask a question </button>
+                <button style={{backgroundColor:"#0056b3",fontSize:"25px", padding:"2rem",position: "absolute", zIndex: 1000}}className={classes.overlayButton} onClick={handleClick}>Ask a question </button>
               </div>
             </div>
           </div>
